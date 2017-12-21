@@ -1,4 +1,4 @@
-package share_app.com.share_app
+package share_app
 
 import org.junit.Test
 import org.junit.runner.RunWith
