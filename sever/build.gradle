@@ -17,8 +17,9 @@ apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'kotlin-kapt'
 
-group = 'share_app.com'
+group = ''
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 compileKotlin {
@@ -30,6 +31,9 @@ compileTestKotlin {
 
 repositories {
 	mavenCentral()
+	maven {
+		 url('https://dl.bintray.com/kotlin/exposed/')
+ }
 }
 
 
@@ -40,4 +44,13 @@ dependencies {
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
 	compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile 'org.jetbrains.exposed:exposed:0.7.6'
+ 	compile 'mysql:mysql-connector-java:5.1.6'
+	// https://mvnrepository.com/artifact/org.postgresql/postgresql
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+	// https://mvnrepository.com/artifact/org.jetbrains.exposed/exposed
+	runtime group: 'org.jetbrains.exposed', name: 'exposed', version: '0.8.5'
+	// https://mvnrepository.com/artifact/org.jetbrains.exposed/spring-transaction
+	compile group: 'org.jetbrains.exposed', name: 'spring-transaction', version: '0.8.5'
+	compile 'com.sparkjava:spark-core:2.6.0'
 }
