@@ -10,10 +10,13 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 fun main(args: Array<String>) {
   DBconnect()
-  get("/user/:id"){ request, response ->
-     GetUser(request.params("id").toInt())
+  get("/user"){ request, response ->
+     GetUser(request.queryParams("id").toInt())
   }
   get("/users"){ request, response ->
       makeUser(request.queryParams("name"),request.queryParams("id").toInt(),request.queryParams("pass"))
+  }
+  get("/user/list/"){req,res ->
+    GetUserList()
   }
 }
