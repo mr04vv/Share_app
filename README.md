@@ -13,6 +13,9 @@ $ git pull //master　branchで
 $ git checkout -b front(or　server)/#(issue番号)-(わかりやすい名前)
 (例　$ git checkout -b server/#11-get-user)
 ```
+できるだけ最新バージョンのmasterからブランチ切って作業しよう
+masterにない部分を拡張したい場合はプルリク送るか
+今いるブランチから新しくブランチ切ってもおk
 
 ## 作業が終わったら
 ```console
