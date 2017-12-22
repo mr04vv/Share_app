@@ -51,6 +51,18 @@ fun GetUser(id : Int): String {
   val mapper = ObjectMapper().registerKotlinModule()
   var user = User()
   transaction{
+    /* val tasks :MutableList<User> = mutableListOf()
+     for (line in Users.selectAll()){
+      for (data in line.data){
+        print(data)
+      }
+    println()
+    }
+     Users.selectAll().forEach{
+      user = User(it[Users.id],it[Users.name],it[Users.group_id],it[Users.password])
+      tasks += user
+     }  */
+      /* println(mapper.writeValueAsString(tasks)) */
     Users.select {
     Users.id.eq(id)
     }.forEach {
@@ -58,5 +70,19 @@ fun GetUser(id : Int): String {
     }
   }
   if(user.id == 0)throw halt(404)
+  println(mapper.writeValueAsString(user))
   return mapper.writeValueAsString(user)
+}
+
+fun GetUserList(): String{
+  val mapper = ObjectMapper().registerKotlinModule()
+  var user = User()
+  val users :MutableList<User> = mutableListOf()
+  transaction{
+    Users.selectAll().forEach{
+      user = User(it[Users.id],it[Users.name],it[Users.group_id],it[Users.password])
+      users += user
+    }
+  }
+  return mapper.writeValueAsString(users)
 }
