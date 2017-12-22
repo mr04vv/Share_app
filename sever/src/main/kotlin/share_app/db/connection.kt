@@ -8,8 +8,12 @@ import model.*
 fun DBconnect(){
     Database.connect("jdbc:mysql://localhost/share_app", "com.mysql.jdbc.Driver","root","puremia1")
     transaction {
-      create(User)
-      create(Todo)
+      create(Users)
+      create(Task)
       create(Content)
+      create(Comment)
+      create(Group)
+      create(GroupMember)
+      create(Token)
     }
 }
