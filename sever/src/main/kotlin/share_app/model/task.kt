@@ -8,4 +8,5 @@ object Task : Table("tasks") {
     val title = varchar("title", 50)
     val contentId = integer("contentId")
     val group_id = integer("group_id")
+    val done = bool("done")
 }
