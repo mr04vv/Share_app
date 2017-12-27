@@ -4,7 +4,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.SchemaUtils.create
 
-object Comment : Table("comments"){
+object Comment_t : Table("comments"){
   val id = integer("id").autoIncrement().primaryKey()
   val task_id = integer("task_id")
   val user_id = integer("user_id")

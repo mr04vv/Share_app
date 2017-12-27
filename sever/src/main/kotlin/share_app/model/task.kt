@@ -1,12 +1,51 @@
 package model
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.SchemaUtils.create
 
-object Task : Table("tasks") {
+import spark.Spark.*
+import db.*
+import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.transactions.*
+import org.jetbrains.exposed.sql.SchemaUtils.create
+import org.jetbrains.exposed.sql.SchemaUtils.drop
+import org.jetbrains.exposed.sql.statements.*
+import java.sql.Connection
+
+object Task_t : Table("tasks") {
     val id = integer("id").autoIncrement().primaryKey()
     val title = varchar("title", 50)
-    val contentId = integer("contentId")
     val group_id = integer("group_id")
     val done = bool("done")
+}
+
+data class Task (
+    var id : Int = 0,
+    var title : String = "",
+    var group_id : Int = 0,
+    var done : Boolean = false
+)
+
+fun GetTask(id : Int): Task {
+  var task = Task()
+  transaction{
+    Task_t.select {
+      Task_t.id.eq(id)
+    }.forEach {
+      task = Task(it[Task_t.id],it[Task_t.title]
+        ,it[Task_t.group_id],it[Task_t.done])
+    }
+  }
+  if(task.id == 0)throw halt(404)
+  return task
+}
+
+fun GetTaskList(): MutableList<Task> {
+  var task = Task()
+  val tasks :MutableList<Task> = mutableListOf()
+  transaction{
+    Task_t.selectAll().forEach{
+      task = Task(it[Task_t.id],it[Task_t.title],
+        it[Task_t.group_id],it[Task_t.done])
+      tasks += task
+    }
+  }
+  return tasks
 }

@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.SchemaUtils.drop
 import org.jetbrains.exposed.sql.statements.*
 import java.sql.Connection
 
-object Users : Table("users") {
+object User_t : Table("users") {
     val id = integer("id").autoIncrement().primaryKey()
     val name = varchar("name", 50).uniqueIndex()
     val group_id = integer("group_id").nullable()
@@ -26,7 +26,7 @@ data class User(
 /* fun makeUser(u_name: String, g_id: Int, pass: String) {
   transaction{
     try{
-      Users.insert{
+      User_t.insert{
         it[name] = u_name
         it[group_id] = if(g_id != 0) g_id else null
         it[password] = pass
@@ -40,10 +40,11 @@ data class User(
 fun GetUser(id : Int): User {
   var user = User()
   transaction{
-    Users.select {
-    Users.id.eq(id)
+    User_t.select {
+    User_t.id.eq(id)
     }.forEach {
-      user = User(it[Users.id],it[Users.name],it[Users.group_id],it[Users.password])
+      user = User(it[User_t.id],it[User_t.name]
+        ,it[User_t.group_id],it[User_t.password])
     }
   }
   if(user.id == 0)throw halt(404)
@@ -54,8 +55,9 @@ fun GetUserList():MutableList<User> {
   var user = User()
   val users :MutableList<User> = mutableListOf()
   transaction{
-    Users.selectAll().forEach{
-      user = User(it[Users.id],it[Users.name],it[Users.group_id],it[Users.password])
+    User_t.selectAll().forEach{
+      user = User(it[User_t.id],it[User_t.name]
+        ,it[User_t.group_id],it[User_t.password])
       users += user
     }
   }

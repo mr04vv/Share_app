@@ -14,6 +14,7 @@ import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 
 fun main(args: Array<String>) {
 val user_c = UserController()
+val task_c = TaskController()
 val mapper = ObjectMapper().registerKotlinModule()
 val toJson = JsonTransformer(mapper)
   DBconnect()
@@ -21,5 +22,10 @@ val toJson = JsonTransformer(mapper)
   path("/users"){
     get("/:id",user_c.getUser(),toJson)
     get("",user_c.getUsetList(),toJson)
+  }
+
+  path("/tasks"){
+    get("/:id",task_c.getTask(),toJson)
+    get("",task_c.getTaskList(),toJson)
   }
 }
