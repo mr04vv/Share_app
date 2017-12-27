@@ -1,5 +1,6 @@
 package model
 import spark.Spark.*
+import db.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.SchemaUtils.create
@@ -7,13 +8,9 @@ import org.jetbrains.exposed.sql.SchemaUtils.drop
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import db.*
-import org.jetbrains.exposed.dao.EntityID
-import org.jetbrains.exposed.dao.IdTable
 import org.jetbrains.exposed.sql.statements.*
 import org.jetbrains.exposed.sql.transactions.TransactionManager
 import java.sql.Connection
-import org.jetbrains.exposed.sql.selectAll
 
 object Users : Table("users") {
     val id = integer("id").autoIncrement().primaryKey()
