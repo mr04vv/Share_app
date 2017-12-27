@@ -2,14 +2,10 @@ package model
 import spark.Spark.*
 import db.*
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.transactions.*
 import org.jetbrains.exposed.sql.SchemaUtils.create
 import org.jetbrains.exposed.sql.SchemaUtils.drop
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.jetbrains.exposed.sql.statements.*
-import org.jetbrains.exposed.sql.transactions.TransactionManager
 import java.sql.Connection
 
 object Users : Table("users") {
@@ -26,11 +22,8 @@ data class User(
     var password : String = ""
   )
 
-data class User_s(
-  var user : User = User()
-  )
 
-fun makeUser(u_name: String, g_id: Int, pass: String) {
+/* fun makeUser(u_name: String, g_id: Int, pass: String) {
   transaction{
     try{
       Users.insert{
@@ -42,24 +35,11 @@ fun makeUser(u_name: String, g_id: Int, pass: String) {
         throw halt(400) //大概ユーザー名被り
     }
   }
-}
+} */
 
-fun GetUser(id : Int): String {
-  val mapper = ObjectMapper().registerKotlinModule()
+fun GetUser(id : Int): User {
   var user = User()
   transaction{
-    /* val tasks :MutableList<User> = mutableListOf()
-     for (line in Users.selectAll()){
-      for (data in line.data){
-        print(data)
-      }
-    println()
-    }
-     Users.selectAll().forEach{
-      user = User(it[Users.id],it[Users.name],it[Users.group_id],it[Users.password])
-      tasks += user
-     }  */
-      /* println(mapper.writeValueAsString(tasks)) */
     Users.select {
     Users.id.eq(id)
     }.forEach {
@@ -67,12 +47,10 @@ fun GetUser(id : Int): String {
     }
   }
   if(user.id == 0)throw halt(404)
-  println(mapper.writeValueAsString(user))
-  return mapper.writeValueAsString(user)
+  return user
 }
 
-fun GetUserList(): String{
-  val mapper = ObjectMapper().registerKotlinModule()
+fun GetUserList():MutableList<User> {
   var user = User()
   val users :MutableList<User> = mutableListOf()
   transaction{
@@ -81,5 +59,5 @@ fun GetUserList(): String{
       users += user
     }
   }
-  return mapper.writeValueAsString(users)
+  return users
 }
