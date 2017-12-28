@@ -30,3 +30,9 @@ githubに行って、pull　request　するようにしてね！
 $ git branch
 ($ git branch -a でリモートにあるブランチも見れる)
 ```
+
+## document変更方法
+```
+$ npm install -g aglio
+$ aglio -i 入力ファイル.md -o index.html
+```
