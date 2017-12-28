@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "doc": "aglio -i index.md -o index.html"
+    "doc": "aglio -i index.md -o index.html",
+    "api": "node_modules/.bin/drakov -f \"*.md\" --watch"
   },
   "author": "",
   "license": "ISC",
