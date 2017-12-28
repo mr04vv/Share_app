@@ -1,0 +1,43 @@
+Arguments: 
+  /usr/local/Cellar/node/8.6.0/bin/node /usr/local/bin/yarn run doc
+
+PATH: 
+  /Users/mo-ri-/.gvm/bin:/Users/mo-ri-/Library/Android/sdk/platform-tools/:/Users/mo-ri-/Library/Android/sdk/tools/:/Users/mo-ri-/.rbenv/shims:/Users/mo-ri-/.rbenv/bin:/usr/local/Cellar/pyenv-virtualenv/1.1.0/shims:/Users/mo-ri-/.pyenv/shims:/Users/mo-ri-/.pyenv/shims:/Users/mo-ri-/.pyenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/go/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Library/TeX/texbin:/Applications/Wireshark.app/Contents/MacOS:/Users/mo-ri-/ff:/Applications/Unity/Unity.app/Contents/Frameworks/MonoBleedingEdge/bin/:/Users/mo-ri-/.pyenv/bin
+
+Yarn version: 
+  1.3.2
+
+Node version: 
+  8.6.0
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+    "name": "shere-app-document",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {"aglio -i index.md -o index.html"},
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "aglio": "^2.3.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  SyntaxError: /Users/mo-ri-/works/private/Shere_app/doc/package.json: Unexpected token } in JSON at position 146
+      at JSON.parse (<anonymous>)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:770:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:92:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:103:13
+      at <anonymous>
