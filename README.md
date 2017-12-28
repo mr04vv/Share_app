@@ -31,25 +31,18 @@ $ git branch
 ($ git branch -a でリモートにあるブランチも見れる)
 ```
 
-## document作成方法
-ドキュメントに修正を加えたら以下のコマンドを実行する
+## api_mock実行方法
+apiのmockサーバを起動する方法
 
-
-[npm]
-```
-$ npm install (結構時間かかる)
-$ npm run-script doc
-(この中で aglio -i index.md -o index.htmlが実行される)
-```
 [yarn]
 ```
 $ npm install yarn 
-$ yarn install
-$ yarn run doc
+$ yarn install (時間かかる)
+$ yarn run api
 ```
-どちらか一方でOK
 
-ドキュメントを開くときは
+
+*ドキュメントを開くときは
 ```
 $ open index.html
 ```
