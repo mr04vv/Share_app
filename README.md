@@ -40,6 +40,22 @@ $ yarn install (時間かかる)
 $ yarn run api
 ```
 
+実行できたら
+```
+[INFO] No configuration files found
+[INFO] Loading configuration from CLI
+   DRAKOV STARTED   
+[LOG] Setup Route: GET /tasks/:id タスク単体情報取得
+[LOG] Setup Route: GET /tasks タスク一覧情報取得
+[LOG] Setup Route: GET /users/:id ユーザ情報取得
+[LOG] Setup Route: GET /users ユーザリスト情報取得
+   Drakov 1.0.4      Listening on port 3000
+ FILE SPY   ACTIVE  
+```
+こんなのが出てくるから
+ブラウザで
+http://localhost:3000/users
+
 
 *ドキュメントを開くときは
 ```
@@ -69,6 +85,9 @@ apiローカルサーバ起動
 $ cd server (Share_app/serverディレクトリに移動)
 $ ./gradlew bootRun
 ```
+起動できたら
 
+~~~88%
+見たいのが出たら成功
 
 
