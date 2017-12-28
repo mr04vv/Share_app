@@ -31,8 +31,23 @@ $ git branch
 ($ git branch -a でリモートにあるブランチも見れる)
 ```
 
-## document変更方法
+## document作成方法
+ドキュメントに修正を加えたら以下のコマンドを実行する
+[npm]
 ```
-$ npm install -g aglio
-$ aglio -i 入力ファイル.md -o index.html
+$ npm install (結構時間かかる)
+$ npm run-script doc
+(この中で aglio -i index.md -o index.htmlが実行される)
+```
+[yarn]
+```
+$ npm install yarn 
+$ yarn install
+$ yarn run doc
+```
+どちらか一方でOK
+
+ドキュメントを開くときは
+```
+$ open index.html
 ```
