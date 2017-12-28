@@ -34,7 +34,6 @@ $ git branch
 ## api_mock実行方法
 apiのmockサーバを起動する方法
 
-[yarn]
 ```
 $ npm install yarn 
 $ yarn install (時間かかる)
@@ -46,3 +45,30 @@ $ yarn run api
 ```
 $ open index.html
 ```
+
+## apiサーバ起動方法
+apiのローカルサーバ起動する方法
+
+まずローカルにsqlのデータベースを作成する
+```
+$ mysql -u root(ユーザ名) -p (pass)
+$ mysql> create database share_app;
+```
+データベース情報をconnection.ktに記述
+```
+$ cd server/src/main/kotlin/share_app/db/
+$ 自分の好きなエディタで connection.kt
+```
+(username)と(pass)に自分のsqlのユーザ名とパスワードを入力
+```
+Database.connect("jdbc:mysql://localhost/share_app", "com.mysql.jdbc.Driver","(username)","(pass)")
+```
+
+apiローカルサーバ起動
+```
+$ cd server (Share_app/serverディレクトリに移動)
+$ ./gradlew bootRun
+```
+
+
+
