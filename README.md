@@ -33,6 +33,8 @@ $ git branch
 
 ## document作成方法
 ドキュメントに修正を加えたら以下のコマンドを実行する
+
+
 [npm]
 ```
 $ npm install (結構時間かかる)
