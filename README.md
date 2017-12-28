@@ -35,7 +35,7 @@ $ git branch
 apiのmockサーバを起動する方法
 
 ```
-$ npm install yarn 
+$ npm install　-g yarn 
 $ yarn install (時間かかる)
 $ yarn run api
 ```
