@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "doc": "aglio -i index.md -o index.html",
-    "api": "node_modules/.bin/drakov -f \"*.md\" --watch"
+    "api": "node_modules/.bin/drakov -f \"*.md\" -p 8081 --watch"
   },
   "author": "",
   "license": "ISC",
