@@ -20,6 +20,11 @@ appIndexJs: resolveApp('src/index.js'), -> appIndexJs: resolveApp('src/routers/i
 ・・・
 appIndexJs: resolveApp('src/index.js'), -> appIndexJs: resolveApp('src/routers/index.js'),
 ```
+変更したらコマンドラインで
+```
+yarn start
+```
+で実行可能
 ## 作業を行うときは
 ```console
 $ git pull //master　branchで
