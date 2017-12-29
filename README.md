@@ -7,6 +7,19 @@ $ cd Share_app
 $ cd server
 $ ./gradlew bootRun
   ```
+  
+## Reactプロジェクト実行方法
+srcディレクトリの中にroutersを新たに作ったので
+```
+$ cd front/node_modules/react-scripts/config
+```
+に移動して
+path.jsの中身を<b>2箇所</b>以下のように変更する
+```
+appIndexJs: resolveApp('src/index.js'), -> appIndexJs: resolveApp('src/routers/index.js'),
+・・・
+appIndexJs: resolveApp('src/index.js'), -> appIndexJs: resolveApp('src/routers/index.js'),
+```
 ## 作業を行うときは
 ```console
 $ git pull //master　branchで
