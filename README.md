@@ -54,7 +54,7 @@ $ yarn run api
 ```
 こんなのが出てくるから
 ブラウザで
-http://localhost:3000/users
+http://localhost:8081/users
 
 
 *ドキュメントを開くときは
