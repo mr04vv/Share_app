@@ -13,11 +13,19 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 
 fun main(args: Array<String>) {
-val user_c = UserController()
-val task_c = TaskController()
-val mapper = ObjectMapper().registerKotlinModule()
-val toJson = JsonTransformer(mapper)
-  DBconnect()
+  val user_c = UserController() //userコントローラ
+  val task_c = TaskController() //taskコントローラ
+  val mapper = ObjectMapper().registerKotlinModule() //マッパー
+  val toJson = JsonTransformer(mapper) //jsonに変換するためのもの
+
+  DBconnect() //データベース接続
+
+  //cors許容
+  before("*", { req, res ->
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin")
+    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
+    })
 
   path("/users"){
     get("/:id",user_c.getUser(),toJson)

@@ -23,6 +23,10 @@ data class Task (
     var done : Boolean = false
 )
 
+data class Tasks (
+    var main : Task? = null
+  )
+
 fun GetTask(id : Int): Task {
   var task = Task()
   transaction{
@@ -37,14 +41,16 @@ fun GetTask(id : Int): Task {
   return task
 }
 
-fun GetTaskList(): MutableList<Task> {
+fun GetTaskList(): MutableList<Tasks> {
   var task = Task()
-  val tasks :MutableList<Task> = mutableListOf()
+  val tasks :MutableList<Tasks> = mutableListOf()
+  var main = Tasks()
   transaction{
     Task_t.selectAll().forEach{
       task = Task(it[Task_t.id],it[Task_t.title],
         it[Task_t.group_id],it[Task_t.done])
-      tasks += task
+      main = Tasks(task)
+      tasks += main
     }
   }
   return tasks
