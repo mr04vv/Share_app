@@ -11,7 +11,7 @@ export default class TaskListActions {
     // fetch('http://sportsapp-2137920236.ap-northeast-1.elb.amazonaws.com/v1/video/list?limit=5&offset=1', {
     // fetch(`http://localhost:1323/v1/video/list?limit=10&offset=0`,{
     // fetch(`http://192.168.0.15:1323/v1/video/list?limit=10&offset=0`,{
-    fetch(`http://42.146.33.29/v1/video/list?limit=10&offset=0`,{
+    fetch(`http://localhost:8081/tasks`,{
       // mode: 'cors',
       headers: {
         // token: '7eb9b754-2b9d-41bd-95a2-69e5dfd7a736',
