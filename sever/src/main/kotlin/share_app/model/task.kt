@@ -71,16 +71,14 @@ fun GetTaskList(): MutableList<Tasks> {
 
 fun AddTask(task : Task): Task {
   transaction{
-    Task_t.insert{
+      task.id = Task_t.insert{
       it[title] = task.title
       it[group_id] = task.group_id
       it[done] = task.done
       it[d_year] = task.dead.year
       it[d_month] = task.dead.month
       it[d_day] = task.dead.day
-    }
-
+    } get Task_t.id
   }
-
   return task
 }
