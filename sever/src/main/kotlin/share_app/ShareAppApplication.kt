@@ -31,5 +31,6 @@ fun main(args: Array<String>) {
   path("/tasks"){
     get("/:id",task_c.getTask(),toJson)
     get("",task_c.getTaskList(),toJson)
+    post("",task_c.addTask(),toJson)
   }
 }

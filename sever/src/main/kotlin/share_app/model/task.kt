@@ -19,12 +19,13 @@ object Task_t : Table("tasks") {
     val dead = datetime("dead_line").nullable()
 }
 
+
 data class Task (
-    var id : Int = 0,
+    var id : Int? = 0,
     var title : String = "",
     var group_id : Int = 0,
     var done : Boolean = false,
-    var dead : DateTime? = DateTime()
+    var dead : DateTime? = null
 )
 
 data class Tasks (
@@ -34,13 +35,13 @@ data class Tasks (
 fun GetTask(id : Int): Task {
   var task = Task()
   transaction{
-    Task_t.select {
+    Task_t.select{
       Task_t.id.eq(id)
-    }.forEach {
+      }.forEach {
       task = Task(it[Task_t.id],it[Task_t.title]
         ,it[Task_t.group_id],it[Task_t.done])
+      }
     }
-  }
   if(task.id == 0)throw halt(404)
   return task
 }
@@ -58,4 +59,18 @@ fun GetTaskList(): MutableList<Tasks> {
     }
   }
   return tasks
+}
+
+fun AddTask(task : Task): Task {
+  transaction{
+    Task_t.insert{
+      it[title] = task.title
+      it[group_id] = task.group_id
+      it[done] = task.done
+      it[dead] = task.dead
+    }
+
+  }
+
+  return task
 }
