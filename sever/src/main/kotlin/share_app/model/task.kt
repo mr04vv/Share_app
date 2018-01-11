@@ -16,13 +16,15 @@ object Task_t : Table("tasks") {
     val title = varchar("title", 50)
     val group_id = integer("group_id")
     val done = bool("done")
-    val dead = datetime("dead_line").nullable()
+    val d_year = integer("dead_year").nullable()
+    val d_month = integer("dead_month").nullable()
+    val d_day = integer("dead_day").nullable()
 }
 
-data class ReqTask (
-  var title: String = "",
-  var group_id : Int = 0,
-  var done : Boolean = false
+data class DeadLine (
+    var year : Int? = null,
+    var month : Int? = null,
+    var day : Int? = null
   )
 
 data class Task (
@@ -30,7 +32,7 @@ data class Task (
     var title : String = "",
     var group_id : Int = 0,
     var done : Boolean = false,
-    var dead : DateTime? = null
+    var dead : DeadLine = DeadLine()
 )
 
 data class Tasks (
@@ -58,7 +60,8 @@ fun GetTaskList(): MutableList<Tasks> {
   transaction{
     Task_t.selectAll().forEach{
       task = Task(it[Task_t.id],it[Task_t.title],
-        it[Task_t.group_id],it[Task_t.done],it[Task_t.dead])
+        it[Task_t.group_id],it[Task_t.done],
+        DeadLine(it[Task_t.d_year],it[Task_t.d_month],it[Task_t.d_day]))
       main = Tasks(task)
       tasks += main
     }
@@ -72,7 +75,9 @@ fun AddTask(task : Task): Task {
       it[title] = task.title
       it[group_id] = task.group_id
       it[done] = task.done
-      it[dead] = task.dead
+      it[d_year] = task.dead.year
+      it[d_month] = task.dead.month
+      it[d_day] = task.dead.day
     }
 
   }
