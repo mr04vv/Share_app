@@ -19,6 +19,11 @@ object Task_t : Table("tasks") {
     val dead = datetime("dead_line").nullable()
 }
 
+data class ReqTask (
+  var title: String = "",
+  var group_id : Int = 0,
+  var done : Boolean = false
+  )
 
 data class Task (
     var id : Int? = 0,
