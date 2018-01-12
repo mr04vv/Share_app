@@ -30,11 +30,21 @@ class TaskListPage extends Component {
 
     // fetch(`http://api.openweathermap.org/data/2.5/weather?appid=${this.OpenWeatherMapKey}&id=${
     //       id}&lang=ja&units=metric`)
-    fetch(`http://localhost:4567/tasks/${id}`,{
-      mode: 'cors',
-      headers: {
-      Accept: 'application/json',
-    },
+    fetch(`http://localhost:4567/tasks`,{
+      method: 'POST',
+      mode:'cors',
+      body: JSON.stringify({
+
+  title: "cs実験round4レト",
+  group_id: 4,
+  done: false,
+  dead:{
+    year:2018,
+    month:1,
+    day:22
+
+}
+}),
     })
     .then((response) => response.json())
     .then((json) => {
