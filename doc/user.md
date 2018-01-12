@@ -15,12 +15,11 @@ FORMAT: 1A
 
 * idで指定したユーザの情報取得
 
-<!-- + Request (application/json) -->
-+ Request
++ Request (application/json)
 
     + Headers
 
-            <!-- Accept: application/json -->
+            Accept: application/json
             <!-- accessToken: f58ba22059f5a8aa8f346e0f40987adab326041fac99029c909bef2c6300821a -->
 
 + Response 200 (application/json)
@@ -41,12 +40,11 @@ FORMAT: 1A
 
 * ユーザ一覧の情報取得
 
-<!-- + Request (application/json) -->
-+ Request
++ Request (application/json)
 
     + Headers
 
-            <!-- Accept: application/json -->
+            Accept: application/json
             <!-- accessToken: f58ba22059f5a8aa8f346e0f40987adab326041fac99029c909bef2c6300821a -->
 
 + Response 200 (application/json)
@@ -78,3 +76,35 @@ FORMAT: 1A
               "password": "pass4"
             }
           ]
+
+## ユーザー登録 [/users]
+
+### ユーザー登録 [POST]
+
+#### 処理概要
+
+* ユーザー登録
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body        
+            {
+              "id": 1,
+              "name": "user",
+              "group_id": 2,
+              "password": "pass"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+    {
+      "id": 1,
+      "name": "user",
+      "group_id": 2,
+      "password": "pass"
+    }
