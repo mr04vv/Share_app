@@ -2,6 +2,9 @@ package controller
 
 import model.*
 import spark.*
+import com.google.gson.Gson
+import com.fasterxml.jackson.module.kotlin.readValue
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 
 class UserController {
 
@@ -13,4 +16,20 @@ class UserController {
   fun getUsetList(): Route = Route { _, _ ->
     model.GetUserList()
   }
+
+  fun addUser() : Route = Route { req, res ->
+    val gson = Gson()
+    val mapper = jacksonObjectMapper()
+    val user_d = mapper.readValue<User>(req.body())
+    var user = model.User(0,user_d.name,user_d.group_id,user_d.password)
+    model.AddUser(user)
+  }
+
+  fun login() : Route = Route { req, res -> 
+    val gson = Gson()
+    val mapper = jacksonObjectMapper()
+    val login_u = mapper.readValue<User>(req.body())
+    var user = model.User(0,login_u.name,login_u.group_id,login_u.password)
+    model.Login(user)
+    }
 }
