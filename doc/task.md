@@ -8,20 +8,24 @@
 
 * idで指定したタスクの情報取得
 
-<!-- + Request (application/json) -->
-+ Request
++ Request (application/json)
 
     + Headers
-        <!-- Accept: application/json -->
+        Accept: application/json
 
 + Response 200 (application/json)
 
     + Body
     {
-      "id": 1,
-      "title": "HPCレポート",
-      "group_id": 1,
-      "done": false
+    "id": 1,
+    "title": "CN期末試験",
+    "group_id": 4,
+    "done": false,
+    "dead":{
+    "year": 2018,
+    "month": 2,
+    "day": 2
+    }
     }
 
 ## タスク一覧 [/tasks]
@@ -32,50 +36,80 @@
 
 * タスクの一覧取得
 
-<!-- + Request (application/json) -->
-+ Request
++ Request (application/json)
 
     + Headers
-        <!-- Accept: application/json -->
+        Accept: application/json
 
 + Response 200 (application/json)
 
     + Body
     [
-      {
-        "id": 1,
-        "title": "HPCレポート",
-        "group_id": 1,
-        "done": false
-      },
-      {
-        "id": 2,
-        "title": "microbitレポート",
-        "group_id": 2,
-        "done": false
-      },
-      {
-        "id": 3,
-        "title": "protcolレポート",
-        "group_id": 1,
-        "done": false
-      },
-      {
-        "id": 4,
-        "title": "kotlinサーバーサイド",
-        "group_id": 2,
-        "done": false
-      },
-      {
-        "id": 5,
-        "title": "goチャットアプリ",
-        "group_id": 3,
-        "done": false
-      },
-      {
-        "id": 6,
-        "title": "",
-        "group_id": 1,
-        "done": false
-      }
-    ]
+  {
+  "main":{
+  "id": 1,
+  "title": "CN期末試験",
+  "group_id": 4,
+  "done": false,
+  "dead":{
+  "year": 2018,
+  "month": 2,
+  "day": 2
+  }
+  }
+  },
+  {
+  "main":{
+  "id": 2,
+  "title": "cs実験round4レポート",
+  "group_id": 4,
+  "done": false,
+  "dead":{
+  "year": 2018,
+  "month": 1,
+  "day": 22
+  }
+  }
+  }
+  ]
+
+
+## タスク投稿 [/tasks]
+
+### タスク情報投稿 [POST]
+
+#### 処理概要
+
+* req.bodyのタスク情報を　dbに追加
+
++ Request (application/json)
+
+    + Headers
+      Accept: application/json
+
+    + Body
+    {
+"title": "cs実験round4レト",
+"group_id": 4,
+"done": false,
+"dead":{
+  "year":2018,
+  "month":1,
+  "day":22
+}
+}
+
++ Response 201 (application/json)
+
+    + Body
+    {
+"id": 1,
+"title": "cs実験round4レト",
+"group_id": 4,
+"done": false,
+"dead":{
+"year": 2018,
+"month": 1,
+"day": 22
+}
+}
