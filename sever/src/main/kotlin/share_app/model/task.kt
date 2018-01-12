@@ -46,10 +46,11 @@ fun GetTask(id : Int): Task {
       Task_t.id.eq(id)
       }.forEach {
       task = Task(it[Task_t.id],it[Task_t.title]
-        ,it[Task_t.group_id],it[Task_t.done])
+        ,it[Task_t.group_id],it[Task_t.done],
+        DeadLine(it[Task_t.d_year],it[Task_t.d_month],it[Task_t.d_day]))
       }
     }
-  if(task.id == 0)throw halt(404)
+  if(task.id == 0)throw halt(404,"is not exist")
   return task
 }
 
