@@ -22,20 +22,33 @@ data class User(
     var password : String = ""
   )
 
+fun Login(u : User): User {
+  transaction{
+      User_t.select{
+        User_t.name.eq(u.name) and User_t.password.eq(u.password)
+      }.forEach {
+        u.id = it[User_t.id]
+        u.group_id = it[User_t.group_id]
+      }
+  }
+  if(u.id == 0)throw halt(404,"wrong name or pass")
+  return u
+}
 
-/* fun makeUser(u_name: String, g_id: Int, pass: String) {
+fun AddUser(u : User): User {
   transaction{
     try{
-      User_t.insert{
-        it[name] = u_name
-        it[group_id] = if(g_id != 0) g_id else null
-        it[password] = pass
-      }
+      u.id = User_t.insert{
+        it[name] = u.name
+        it[group_id] = u.group_id
+        it[password] = u.password
+      } get User_t.id
     } catch(e :Exception){
-        throw halt(400) //大概ユーザー名被り
+        throw halt(400,"this name is already exist") //大概ユーザー名被り
     }
   }
-} */
+  return u
+}
 
 fun GetUser(id : Int): User {
   var user = User()
@@ -47,7 +60,7 @@ fun GetUser(id : Int): User {
         ,it[User_t.group_id],it[User_t.password])
     }
   }
-  if(user.id == 0)throw halt(404)
+  if(user.id == 0)throw halt(404,"is not exist")
   return user
 }
 
