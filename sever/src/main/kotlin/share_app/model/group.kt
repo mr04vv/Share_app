@@ -9,7 +9,7 @@ object Group_t : Table("groups") {
 }
 
 object GroupMember_t : Table("group_members") {
-    val group_id = integer("group_id")
+    val id = integer("id").autoIncrement().primaryKey()
+    val group_id = (integer("group_id") references Group_t.id)
     val user_id = integer("user_id")
-
 }

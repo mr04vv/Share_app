@@ -21,15 +21,15 @@ class UserController {
     val gson = Gson()
     val mapper = jacksonObjectMapper()
     val user_d = mapper.readValue<User>(req.body())
-    var user = model.User(0,user_d.name,user_d.group_id,user_d.password)
+    var user = model.User(0,user_d.name,user_d.password)
     model.AddUser(user)
   }
 
-  fun login() : Route = Route { req, res -> 
+  fun login() : Route = Route { req, res ->
     val gson = Gson()
     val mapper = jacksonObjectMapper()
     val login_u = mapper.readValue<User>(req.body())
-    var user = model.User(0,login_u.name,login_u.group_id,login_u.password)
+    var user = model.User(0,login_u.name,login_u.password)
     model.Login(user)
     }
 }
