@@ -22,7 +22,13 @@ data class User(
     var password : String = ""
   )
 
-fun Login(u : User): User {
+data class ResponseUserData(
+    var id : Int = 0,
+    var name : String = "",
+    var group_id : Int? = null
+  )
+
+fun Login(u : User): ResponseUserData {
   transaction{
       User_t.select{
         User_t.name.eq(u.name) and User_t.password.eq(u.password)
@@ -32,7 +38,7 @@ fun Login(u : User): User {
       }
   }
   if(u.id == 0)throw halt(404,"wrong name or pass")
-  return u
+  return ResponseUserData(u.id,u.name,u.group_id)
 }
 
 fun AddUser(u : User): User {
