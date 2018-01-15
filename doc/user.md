@@ -26,10 +26,18 @@ FORMAT: 1A
 
     + Body
     {
-      "id": 1,
-      "name": "user",
-      "group_id": 2,
-      "password": "pass"
+    "id": 1,
+    "name": "おおやま",
+    "group":[
+    {
+    "id": 1,
+    "name": "groupppppp"
+    },
+    {
+    "id": 3,
+    "name": "おおやまグループ"
+    }
+    ]
     }
 
 ## ユーザ一覧 [/users]
@@ -44,38 +52,68 @@ FORMAT: 1A
 
     + Headers
 
+
             Accept: application/json
             <!-- accessToken: f58ba22059f5a8aa8f346e0f40987adab326041fac99029c909bef2c6300821a -->
 
 + Response 200 (application/json)
 
     + Body
-          [
-            {
-              "id": 1,
-              "name": "user",
-              "group_id": 2,
-              "password": "pass"
-            },
-            {
-              "id": 2,
-              "name": "user2",
-              "group_id": 2,
-              "password": "pass2"
-            },
-            {
-              "id": 3,
-              "name": "user3",
-              "group_id": 2,
-              "password": "pass3"
-            },
-            {
-              "id": 4,
-              "name": "user4",
-              "group_id": 2,
-              "password": "pass4"
-            }
-          ]
+    [
+    {
+    "id": 1,
+    "name": "おおやま",
+    "group":[
+    {
+    "id": 1,
+    "name": "groupppppp"
+    },
+    {
+    "id": 3,
+    "name": "おおやまグループ"
+    }
+    ]
+    },
+    {
+    "id": 3,
+    "name": "もり",
+    "group":[
+    {
+    "id": 4,
+    "name": "グループ森"
+    }
+    ]
+    },
+    {
+    "id": 5,
+    "name": "もりx",
+    "group":[
+    {
+    "id": 1,
+    "name": "groupppppp"
+    }
+    ]
+    },
+    {
+    "id": 6,
+    "name": "もりxs",
+    "group":[
+    {
+    "id": 2,
+    "name": "group1"
+    },
+    {
+    "id": 3,
+    "name": "おおやまグループ"
+    }
+    ]
+    },
+    {
+    "id": 8,
+    "name": "user",
+    "group":[]
+    }
+    ]
 
 ## ユーザー登録 [/users]
 
@@ -93,9 +131,7 @@ FORMAT: 1A
 
     + Body        
             {
-              "id": 1,
               "name": "user",
-              "group_id": 2,
               "password": "pass"
             }
 
@@ -103,8 +139,7 @@ FORMAT: 1A
 
     + Body
     {
-      "id": 1,
-      "name": "user",
-      "group_id": 2,
-      "password": "pass"
+    "id": 1,
+    "name": "user",
+    "group": null
     }

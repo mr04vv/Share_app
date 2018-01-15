@@ -16,7 +16,7 @@
 
     + Body        
             {
-              "name": "user",
+              "name": "おおやま",
               "password": "pass"
             }
 
@@ -24,8 +24,16 @@
 
     + Body
     {
-      "id": 1,
-      "name": "user",
-      "group_id": 2,
-      "password": "pass"
+    "id": 1,
+    "name": "おおやま",
+    "group":[
+    {
+    "id": 1,
+    "name": "groupppppp"
+    },
+    {
+    "id": 3,
+    "name": "おおやまグループ"
+    }
+    ]
     }
