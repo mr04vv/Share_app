@@ -46,7 +46,7 @@ fun Login(u : User): ResponseUserData {
       /* u.group_id = it[User_t.group_id] */
     }
     (GroupMember_t innerJoin Group_t).slice(GroupMember_t.group_id, Group_t.name).
-        select {GroupMember_t.group_id.eq(Group_t.id)}.forEach {
+        select {GroupMember_t.user_id.eq(u.id)}.forEach {
         group = Group(it[GroupMember_t.group_id],it[Group_t.name])
         group_id += group
     }
@@ -55,7 +55,7 @@ fun Login(u : User): ResponseUserData {
   return ResponseUserData(u.id,u.name,group_id)
 }
 
-fun AddUser(u : User): User {
+fun AddUser(u : User): ResponseUserData {
   transaction{
     try{
       u.id = User_t.insert{
@@ -66,10 +66,12 @@ fun AddUser(u : User): User {
         throw halt(400,"this name is already exist") //大概ユーザー名被り
     }
   }
-  return u
+  return ResponseUserData(u.id,u.name,null)
 }
 
-fun GetUser(id : Int): User {
+fun GetUser(id : Int): ResponseUserData {
+  var group = Group()
+  val group_id :MutableList<Group> = mutableListOf()
   var user = User()
   transaction{
     User_t.select {
@@ -78,18 +80,28 @@ fun GetUser(id : Int): User {
       user = User(it[User_t.id],it[User_t.name]
         ,it[User_t.password])
     }
+    (GroupMember_t innerJoin Group_t).slice(GroupMember_t.group_id, Group_t.name).
+        select {GroupMember_t.user_id.eq(user.id)}.forEach {
+        group = Group(it[GroupMember_t.group_id],it[Group_t.name])
+        group_id += group
+    }
   }
   if(user.id == 0)throw halt(404,"is not exist")
-  return user
+  return ResponseUserData(user.id,user.name,group_id)
 }
 
-fun GetUserList():MutableList<User> {
-  var user = User()
-  val users :MutableList<User> = mutableListOf()
+fun GetUserList():MutableList<ResponseUserData> {
+  var group = Group()
+  val group_id :MutableList<Group> = mutableListOf()
+  var user = ResponseUserData()
+  val users :MutableList<ResponseUserData> = mutableListOf()
+  val ids :MutableList<Int> = mutableListOf()
   transaction{
     User_t.selectAll().forEach{
-      user = User(it[User_t.id],it[User_t.name]
-        ,it[User_t.password])
+      ids += it[User_t.id]
+    }
+    ids.forEach{
+      user = GetUser(it)
       users += user
     }
   }
