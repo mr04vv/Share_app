@@ -2,6 +2,8 @@ package model
 import spark.Spark.*
 import db.*
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.Join.*
+import org.jetbrains.exposed.sql.Table.*
 import org.jetbrains.exposed.sql.transactions.*
 import org.jetbrains.exposed.sql.SchemaUtils.create
 import org.jetbrains.exposed.sql.SchemaUtils.drop
@@ -11,34 +13,46 @@ import java.sql.Connection
 object User_t : Table("users") {
     val id = integer("id").autoIncrement().primaryKey()
     val name = varchar("name", 50).uniqueIndex()
-    val group_id = integer("group_id").nullable()
     val password = varchar("password",30)
 }
 
 data class User(
     var id : Int = 0,
     var name : String = "",
-    var group_id : Int? = null,
     var password : String = ""
   )
+
+data class Group(
+    var id : Int? =null,
+    var name : String = ""
+  )
+
+
 
 data class ResponseUserData(
     var id : Int = 0,
     var name : String = "",
-    var group_id : Int? = null
+    var group : MutableList<Group>? = null
   )
 
 fun Login(u : User): ResponseUserData {
+  var group = Group()
+  val group_id :MutableList<Group> = mutableListOf()
   transaction{
-      User_t.select{
-        User_t.name.eq(u.name) and User_t.password.eq(u.password)
-      }.forEach {
-        u.id = it[User_t.id]
-        u.group_id = it[User_t.group_id]
-      }
+    User_t.select{
+      User_t.name.eq(u.name) and User_t.password.eq(u.password)
+    }.forEach {
+      u.id = it[User_t.id]
+      /* u.group_id = it[User_t.group_id] */
+    }
+    (GroupMember_t innerJoin Group_t).slice(GroupMember_t.group_id, Group_t.name).
+        select {GroupMember_t.group_id.eq(Group_t.id)}.forEach {
+        group = Group(it[GroupMember_t.group_id],it[Group_t.name])
+        group_id += group
+    }
   }
   if(u.id == 0)throw halt(404,"wrong name or pass")
-  return ResponseUserData(u.id,u.name,u.group_id)
+  return ResponseUserData(u.id,u.name,group_id)
 }
 
 fun AddUser(u : User): User {
@@ -46,7 +60,6 @@ fun AddUser(u : User): User {
     try{
       u.id = User_t.insert{
         it[name] = u.name
-        it[group_id] = u.group_id
         it[password] = u.password
       } get User_t.id
     } catch(e :Exception){
@@ -63,7 +76,7 @@ fun GetUser(id : Int): User {
     User_t.id.eq(id)
     }.forEach {
       user = User(it[User_t.id],it[User_t.name]
-        ,it[User_t.group_id],it[User_t.password])
+        ,it[User_t.password])
     }
   }
   if(user.id == 0)throw halt(404,"is not exist")
@@ -76,7 +89,7 @@ fun GetUserList():MutableList<User> {
   transaction{
     User_t.selectAll().forEach{
       user = User(it[User_t.id],it[User_t.name]
-        ,it[User_t.group_id],it[User_t.password])
+        ,it[User_t.password])
       users += user
     }
   }
