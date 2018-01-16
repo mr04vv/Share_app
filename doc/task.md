@@ -28,7 +28,10 @@
     }
     }
 
-## タスク一覧 [/tasks]
+## タスク一覧 [/tasks{?group}]
++ Parameters
+
+    + group: 1 (number,required) - リストが欲しいグループのid
 
 ### タスク一覧情報取得 [GET]
 
@@ -49,7 +52,7 @@
   "main":{
   "id": 1,
   "title": "CN期末試験",
-  "group_id": 4,
+  "group_id": 1,
   "done": false,
   "dead":{
   "year": 2018,
@@ -62,7 +65,7 @@
   "main":{
   "id": 2,
   "title": "cs実験round4レポート",
-  "group_id": 4,
+  "group_id": 1,
   "done": false,
   "dead":{
   "year": 2018,

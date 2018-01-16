@@ -54,12 +54,14 @@ fun GetTask(id : Int): Task {
   return task
 }
 
-fun GetTaskList(): MutableList<Tasks> {
+fun GetTaskListbyId(id : Int): MutableList<Tasks> {
   var task = Task()
   val tasks :MutableList<Tasks> = mutableListOf()
   var main = Tasks()
   transaction{
-    Task_t.selectAll().forEach{
+    Task_t.select{
+      Task_t.group_id.eq(id)
+      }.forEach{
       task = Task(it[Task_t.id],it[Task_t.title],
         it[Task_t.group_id],it[Task_t.done],
         DeadLine(it[Task_t.d_year],it[Task_t.d_month],it[Task_t.d_day]))
