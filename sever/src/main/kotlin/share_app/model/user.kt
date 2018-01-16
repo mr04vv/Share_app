@@ -35,7 +35,14 @@ data class ResponseUserData(
     var group : MutableList<Group>? = null
   )
 
-fun Login(u : User): ResponseUserData {
+data class ResponseUserDataWithToken(
+    var id : Int = 0,
+    var name : String = "",
+    var group : MutableList<Group>? = null,
+    var token : String? = null
+  )
+
+fun Login(u : User): ResponseUserDataWithToken {
   var group = Group()
   val group_id :MutableList<Group> = mutableListOf()
   transaction{
@@ -52,7 +59,8 @@ fun Login(u : User): ResponseUserData {
     }
   }
   if(u.id == 0)throw halt(404,"wrong name or pass")
-  return ResponseUserData(u.id,u.name,group_id)
+  var token = CreateToken(u.id)
+  return ResponseUserDataWithToken(u.id,u.name,group_id,token)
 }
 
 fun AddUser(u : User): ResponseUserData {

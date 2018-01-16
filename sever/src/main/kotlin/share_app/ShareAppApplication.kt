@@ -23,7 +23,6 @@ fun main(args: Array<String>) {
   //cors許容
   Filter()
 
-
   path("/users"){
     get("/:id",user_c.getUser(),toJson)
     get("",user_c.getUsetList(),toJson)
