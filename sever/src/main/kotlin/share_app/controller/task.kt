@@ -10,14 +10,13 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 
 class TaskController{
   fun getTask(): Route = Route { req, _ ->
-    /* var type = req.contentType() */
-    /* if (type  != "application/json") throw halt(400,"Bad Content-Type") */
     val id = req.params("id").toInt()
     model.GetTask(id)
   }
 
-  fun getTaskList(): Route = Route { _, _ ->
-    model.GetTaskList()
+  fun getTaskList(): Route = Route { req, _ ->
+    val id = req.queryParams("group").toInt()
+    model.GetTaskListbyId(id)
   }
 
   fun addTask() : Route = Route { req, res ->
