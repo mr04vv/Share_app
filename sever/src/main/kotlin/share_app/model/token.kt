@@ -10,15 +10,15 @@ object Token_t : Table("tokens"){
 }
 
 data class Token(
-    var token : String? = null,
-    var user_id : Int? = 0
+    val token : String,
+    val user_id : Int
   )
 
-fun CreateToken(u_id : Int){
+fun CreateToken(u_id : Int) :String{
     var uuid = UUID.randomUUID().toString()
-    token.user_id = u_id
-
-
+    var t = Token(uuid,u_id)
+    InsertToken(t)
+    return t.token
 }
 
 fun InsertToken(t : Token){
