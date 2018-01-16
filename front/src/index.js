@@ -14,7 +14,7 @@ class TaskListPage extends Component {
   constructor(props) {
     super(props)
     this.state = {id: null, title: null, group_id: null, done: false, loading: false}
-    this.Ids=[{name: 'いち', id:1},{name: 'に', id: 2},{name: 'さん', id: 3}]
+    this.Ids=[{name: 'いち', id:5},{name: 'に', id: 6},{name: 'さん', id: 7},{name: 'よん', id: 8}]
 
 
   }
@@ -30,21 +30,21 @@ class TaskListPage extends Component {
 
     // fetch(`http://api.openweathermap.org/data/2.5/weather?appid=${this.OpenWeatherMapKey}&id=${
     //       id}&lang=ja&units=metric`)
-    fetch(`http://localhost:4567/tasks`,{
-      method: 'POST',
+    fetch(`http://localhost:4567/tasks/${id}`,{
+      // method: 'POST',
       mode:'cors',
-      body: JSON.stringify({
-
-  title: "cs実験round4レト",
-  group_id: 4,
-  done: false,
-  dead:{
-    year:2018,
-    month:1,
-    day:22
-
-}
-}),
+//       body: JSON.stringify({
+//
+//   title: "cs実験round4レト",
+//   group_id: 4,
+//   done: false,
+//   dead:{
+//     year:2018,
+//     month:1,
+//     day:22
+//
+// }
+// }),
     })
     .then((response) => response.json())
     .then((json) => {
