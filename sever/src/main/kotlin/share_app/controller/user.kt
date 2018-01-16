@@ -31,5 +31,6 @@ class UserController {
     val login_u = mapper.readValue<User>(req.body())
     var user = model.User(0,login_u.name,login_u.password)
     model.Login(user)
+    model.CreateToken(user.id)
     }
 }
