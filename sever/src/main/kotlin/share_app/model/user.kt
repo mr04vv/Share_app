@@ -13,7 +13,7 @@ import java.sql.Connection
 object User_t : Table("users") {
     val id = integer("id").autoIncrement().primaryKey()
     val name = varchar("name", 50).uniqueIndex()
-    val password = varchar("password",30)
+    val password = varchar("password",100)
 }
 
 data class User(
@@ -45,6 +45,9 @@ data class ResponseUserDataWithToken(
 fun Login(u : User): ResponseUserDataWithToken {
   var group = Group()
   val group_id :MutableList<Group> = mutableListOf()
+
+  u.password = HashString("SHA-256",u.password)
+
   transaction{
     User_t.select{
       User_t.name.eq(u.name) and User_t.password.eq(u.password)
@@ -64,6 +67,7 @@ fun Login(u : User): ResponseUserDataWithToken {
 }
 
 fun AddUser(u : User): ResponseUserData {
+  u.password = HashString("SHA-256",u.password)
   transaction{
     try{
       u.id = User_t.insert{
