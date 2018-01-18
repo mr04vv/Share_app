@@ -102,21 +102,19 @@ fun GetUser(id : Int): ResponseUserData {
   return ResponseUserData(user.id,user.name,group_id)
 }
 
-fun GetUserList():MutableList<ResponseUserData> {
-  var group = Group()
-  val group_id :MutableList<Group> = mutableListOf()
-  var user = ResponseUserData()
-  val users :MutableList<ResponseUserData> = mutableListOf()
-  val ids :MutableList<Int> = mutableListOf()
+fun GetUserList(group : Int):MutableList<GroupMember> {
+  print(group)
+  print("\n\n\n\n\n\n")
+  var user = GroupMember()
+  val users :MutableList<GroupMember> = mutableListOf()
   transaction{
-    User_t.selectAll().forEach{
-      ids += it[User_t.id]
-    }
-    ids.forEach{
-      user = GetUser(it)
-      users += user
-    }
+    (GroupMember_t innerJoin User_t).slice(User_t.id,User_t.name).
+      select{
+        GroupMember_t.group_id.eq(group)
+      }.forEach{
+        user = GroupMember(it[User_t.id],it[User_t.name])
+        users += user
+      }
   }
   return users
 }
-/* これはコメントです */

@@ -40,13 +40,54 @@ FORMAT: 1A
     ]
     }
 
-## ユーザ一覧 [/users]
+## ユーザ [/users/me]
+
+
+
+### 自分の情報取得 [GET]
+
+#### 処理概要
+
+
+* マイページなどで使い自分の情報取得
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            token: 51824e07-d42e-4dd9-8ba7-345d06c1496b
+
++ Response 200 (application/json)
+
+    + Body
+    {
+    "id": 1,
+    "name": "おおやま",
+    "group":[
+    {
+    "id": 1,
+    "name": "groupppppp"
+    },
+    {
+    "id": 3,
+    "name": "おおやまグループ"
+    }
+    ]
+    }
+
+
+## グループごとのユーザ一覧 [/users/group/:id]
+
++ Parameters
+
+    + id: 1 (number,required) - グループid
 
 ### ユーザリスト情報取得 [GET]
 
 #### 処理概要
 
-* ユーザ一覧の情報取得
+* グループごとのユーザ一覧の情報取得
 
 + Request (application/json)
 
