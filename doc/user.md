@@ -2,11 +2,11 @@ FORMAT: 1A
 
 # Group ユーザ
 
-## ユーザ [/users/:id]
+## ユーザ [/users{?id}]
 
 + Parameters
 
-    + id: 1 (number) - ユーザid
+    + id: 1 (number,required) - ユーザid
 
 ### ユーザ情報取得 [GET]
 

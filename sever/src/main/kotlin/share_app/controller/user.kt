@@ -9,8 +9,14 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 class UserController {
 
   fun getUser(): Route = Route { req, _ ->
-    val id = req.params("id").toInt()
+    val id = req.queryParams("id").toInt()
     model.GetUser(id)
+  }
+
+  fun getUserMe(): Route = Route { req, _ ->
+    val token = req.headers("token")
+    model.GetUser(FindUserIdByToken(token))
+
   }
 
   fun getUsetList(): Route = Route { _, _ ->

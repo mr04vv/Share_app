@@ -26,6 +26,17 @@ fun InsertToken(t : Token){
       Token_t.insert{
         it[token] = t.token
         it[user_id] = t.user_id
-      }
     }
+  }
+}
+fun FindUserIdByToken(t: String): Int{
+  var id = 0
+  transaction{
+    Token_t.select{
+      Token_t.token.eq(t)
+    }.forEach{
+      id = it[Token_t.user_id]
+    }
+  }
+  return id
 }
