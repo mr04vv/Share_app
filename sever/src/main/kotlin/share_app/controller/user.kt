@@ -25,16 +25,14 @@ class UserController {
     model.GetUserList(group)
   }
 
-  fun addUser() : Route = Route { req, res ->
-    val gson = Gson()
+  fun addUser() : Route = Route { req, _ ->
     val mapper = jacksonObjectMapper()
     val user_d = mapper.readValue<User>(req.body())
     var user = model.User(0,user_d.name,user_d.password)
     model.AddUser(user)
   }
 
-  fun login() : Route = Route { req, res ->
-    val gson = Gson()
+  fun login() : Route = Route { req, _ ->
     val mapper = jacksonObjectMapper()
     val login_u = mapper.readValue<User>(req.body())
     var user = model.User(0,login_u.name,login_u.password)

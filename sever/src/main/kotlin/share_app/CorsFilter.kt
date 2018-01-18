@@ -5,7 +5,7 @@ import spark.Spark.*
 
 fun Filter(){
 //cors許容
-before("*", { req, res ->
+before("*", { _, res ->
   res.header("Content-Type","application/json")
   res.header("Access-Control-Allow-Origin", "*")
   res.header("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin")

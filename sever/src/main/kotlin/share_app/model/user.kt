@@ -43,7 +43,7 @@ data class ResponseUserDataWithToken(
   )
 
 fun Login(u : User): ResponseUserDataWithToken {
-  var group = Group()
+  var group: Group
   val group_id :MutableList<Group> = mutableListOf()
 
   u.password = HashString("SHA-256",u.password)
@@ -82,7 +82,7 @@ fun AddUser(u : User): ResponseUserData {
 }
 
 fun GetUser(id : Int): ResponseUserData {
-  var group = Group()
+  var group: Group
   val group_id :MutableList<Group> = mutableListOf()
   var user = User()
   transaction{
@@ -103,9 +103,7 @@ fun GetUser(id : Int): ResponseUserData {
 }
 
 fun GetUserList(group : Int):MutableList<GroupMember> {
-  print(group)
-  print("\n\n\n\n\n\n")
-  var user = GroupMember()
+  var user: GroupMember
   val users :MutableList<GroupMember> = mutableListOf()
   transaction{
     (GroupMember_t innerJoin User_t).slice(User_t.id,User_t.name).
