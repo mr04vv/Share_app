@@ -8,6 +8,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 
 class UserController {
 
+
   fun getUser(): Route = Route { req, _ ->
     val id = req.queryParams("id").toInt()
     model.GetUser(id)
@@ -19,8 +20,9 @@ class UserController {
 
   }
 
-  fun getUsetList(): Route = Route { _, _ ->
-    model.GetUserList()
+  fun getUserList(): Route = Route { req, _ ->
+    val group = req.params("id").toInt()
+    model.GetUserList(group)
   }
 
   fun addUser() : Route = Route { req, res ->

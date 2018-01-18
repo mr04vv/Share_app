@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
   path("/users"){
     get("",user_c.getUser(),toJson)
     get("/me",user_c.getUserMe(),toJson)
-    get("",user_c.getUsetList(),toJson)
+    get("/group/:id",user_c.getUserList(),toJson)
     post("",user_c.addUser(),toJson)
   }
 
