@@ -46,12 +46,9 @@ dependencies {
 	compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile 'org.jetbrains.exposed:exposed:0.7.6'
- 	compile 'mysql:mysql-connector-java:5.1.6'
-	// https://mvnrepository.com/artifact/org.postgresql/postgresql
+	compile 'mysql:mysql-connector-java:5.1.6'
 	compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
-	// https://mvnrepository.com/artifact/org.jetbrains.exposed/exposed
 	runtime group: 'org.jetbrains.exposed', name: 'exposed', version: '0.8.5'
-	// https://mvnrepository.com/artifact/org.jetbrains.exposed/spring-transaction
 	compile group: 'org.jetbrains.exposed', name: 'spring-transaction', version: '0.8.5'
 	compile 'com.sparkjava:spark-core:2.6.0'
 	compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.8.8'
