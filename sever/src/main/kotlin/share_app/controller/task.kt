@@ -19,13 +19,11 @@ class TaskController{
     model.GetTaskListbyId(id)
   }
 
-  fun addTask() : Route = Route { req, res ->
-    val gson = Gson()
+  fun addTask() : Route = Route { req, _ ->
     val mapper = jacksonObjectMapper()
     val task_d = mapper.readValue<Task>(req.body())
     var task =model.Task(null,task_d.title,task_d.group_id,task_d.done,
       DeadLine(task_d.dead.year,task_d.dead.month,task_d.dead.day))
-
     model.AddTask(task)
   }
 }

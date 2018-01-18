@@ -55,10 +55,10 @@ fun GetTask(id : Int): Task {
 }
 
 fun GetTaskListbyId(id : Int): MutableList<Tasks> {
-  var task = Task()
-  val tasks :MutableList<Tasks> = mutableListOf()
-  var main = Tasks()
-  transaction{
+    var task: Task
+    val tasks :MutableList<Tasks> = mutableListOf()
+    var main: Tasks
+    transaction{
     Task_t.select{
       Task_t.group_id.eq(id)
       }.forEach{
