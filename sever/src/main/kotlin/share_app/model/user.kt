@@ -43,7 +43,7 @@ data class ResponseUserDataWithToken(
   )
 
 fun Login(u : User): ResponseUserDataWithToken {
-  var group: Group
+  lateinit var group: Group
   val group_id :MutableList<Group> = mutableListOf()
 
   u.password = HashString("SHA-256",u.password)
@@ -84,7 +84,7 @@ fun AddUser(u : User): ResponseUserData {
 fun GetUser(id : Int): ResponseUserData {
   var group: Group
   val group_id :MutableList<Group> = mutableListOf()
-  var user = User()
+  lateinit var user : User
   transaction{
     User_t.select {
     User_t.id.eq(id)
@@ -92,13 +92,17 @@ fun GetUser(id : Int): ResponseUserData {
       user = User(it[User_t.id],it[User_t.name]
         ,it[User_t.password])
     }
+
+      if(user == null)throw halt(404,"is not exist")
+//      ここでエラー処理　書き直す TODO
+
     (GroupMember_t innerJoin Group_t).slice(GroupMember_t.group_id, Group_t.name).
         select {GroupMember_t.user_id.eq(user.id)}.forEach {
         group = Group(it[GroupMember_t.group_id],it[Group_t.name])
         group_id += group
     }
   }
-  if(user.id == 0)throw halt(404,"is not exist")
+
   return ResponseUserData(user.id,user.name,group_id)
 }
 
