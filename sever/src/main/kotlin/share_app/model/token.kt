@@ -2,6 +2,7 @@ package model
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.SchemaUtils.create
+import spark.Spark.halt
 import java.util.UUID
 
 object Token_t : Table("tokens"){
@@ -30,7 +31,7 @@ fun InsertToken(t : Token){
   }
 }
 fun FindUserIdByToken(t: String): Int{
-  var id = 0
+    var id  : Int = 0
   transaction{
     Token_t.select{
       Token_t.token.eq(t)
@@ -38,5 +39,8 @@ fun FindUserIdByToken(t: String): Int{
       id = it[Token_t.user_id]
     }
   }
+    if(id == 0)throw halt(404,"is not exist")
+//    ここでエラー処理 書き直す
+//    TODO
   return id
 }
