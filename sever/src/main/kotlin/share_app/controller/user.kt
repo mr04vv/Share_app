@@ -10,32 +10,23 @@ class UserController {
 
 
   fun getUser(): Route = Route { req, _ ->
-    val id = req.queryParams("id").toInt()
-    model.GetUser(id)
+    model.GetUser(req.queryParams("id").toInt())
   }
 
   fun getUserMe(): Route = Route { req, _ ->
-    val token = req.headers("token")
-    model.GetUser(FindUserIdByToken(token))
+    model.GetUser(FindUserIdByToken(req.headers("token")))
 
   }
 
   fun getUserList(): Route = Route { req, _ ->
-    val group = req.params("id").toInt()
-    model.GetUserList(group)
+    model.GetUserList(req.params("id").toInt())
   }
 
   fun addUser() : Route = Route { req, _ ->
-    val mapper = jacksonObjectMapper()
-    val user_d = mapper.readValue<User>(req.body())
-    var user = model.User(0,user_d.name,user_d.password)
-    model.AddUser(user)
+    model.AddUser(jacksonObjectMapper().readValue(req.body()))
   }
 
   fun login() : Route = Route { req, _ ->
-    val mapper = jacksonObjectMapper()
-    val login_u = mapper.readValue<User>(req.body())
-    var user = model.User(0,login_u.name,login_u.password)
-    model.Login(user)
-    }
+    model.Login(jacksonObjectMapper().readValue(req.body()))
+  }
 }
