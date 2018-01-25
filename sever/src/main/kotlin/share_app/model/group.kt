@@ -1,7 +1,6 @@
 package model
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.SchemaUtils.create
 import spark.Spark.halt
 
 object Group_t : Table("groups") {
@@ -25,13 +24,12 @@ data class Group(
     var name : String? = null
 )
 
-fun addGroup(name : String?) : Group{
-    lateinit var group : Group
+fun addGroup(group: Group) : Group{
 
     transaction {
-        group = Group(Group_t.insert {
-            it[Group_t.name] = name
-        } get Group_t.id,name)
+       group.id = Group_t.insert {
+            it[Group_t.name] = group.name
+        } get Group_t.id
     }
     if(group.id == 0) throw halt(400,"can't create group")
     return group

@@ -2,38 +2,27 @@ package share_app
 
 import spark.Spark.*
 import db.*
-import model.*
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.SchemaUtils.create
-import org.jetbrains.exposed.sql.transactions.transaction
 import controller.*
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import spark.Spark
+
 
 fun main(args: Array<String>) {
-
-  val user_c = UserController() //userコントローラ
-  val task_c = TaskController() //taskコントローラ
-  val mapper = ObjectMapper().registerKotlinModule() //マッパー
-  val toJson = JsonTransformer(mapper) //jsonに変換するためのもの
-
+  
+  val toJson = JsonTransformer(ObjectMapper().registerKotlinModule())
+  
   DBconnect() //データベース接続
-
-  //cors許容
-  Filter()
+  Filter() //cors許容
 
   path("/users"){
-    get("",user_c.getUser(),toJson)
-    get("/me",user_c.getUserMe(),toJson)
-    get("/group/:id",user_c.getUserList(),toJson)
-    post("",user_c.addUser(),toJson)
+    get("",UserController().getUser(),toJson)
+    get("/me",UserController().getUserMe(),toJson)
+    get("/group/:id",UserController().getUserList(),toJson)
+    post("",UserController().addUser(),toJson)
   }
 
   path("/login"){
-    post("",user_c.login(),toJson)
+    post("",UserController().login(),toJson)
   }
 
   path("groups"){
@@ -41,8 +30,8 @@ fun main(args: Array<String>) {
   }
 
   path("/tasks"){
-    get("/:id",task_c.getTask(),toJson)
-    get("",task_c.getTaskList(),toJson)
-    post("",task_c.addTask(),toJson)
+    get("/:id",TaskController().getTask(),toJson)
+    get("",TaskController().getTaskList(),toJson)
+    post("",TaskController().addTask(),toJson)
   }
 }
