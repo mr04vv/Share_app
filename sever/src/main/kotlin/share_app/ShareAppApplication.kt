@@ -36,6 +36,10 @@ fun main(args: Array<String>) {
     post("",user_c.login(),toJson)
   }
 
+  path("groups"){
+    post("",GroupController().AddGroup(),toJson)
+  }
+
   path("/tasks"){
     get("/:id",task_c.getTask(),toJson)
     get("",task_c.getTaskList(),toJson)

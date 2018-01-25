@@ -22,10 +22,6 @@ data class User(
     var password : String = ""
   )
 
-data class Group(
-    var id : Int? =null,
-    var name : String = ""
-  )
 
 
 
