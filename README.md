@@ -1,6 +1,6 @@
 # Shere_app
 
-## How to excute
+## サーバー起動方法
 ```console
 $ git clone [this repository]
 $ cd Share_app
