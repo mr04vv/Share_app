@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.SchemaUtils.create
 import model.*
 
 fun DBconnect(){
-    Database.connect("jdbc:mysql://localhost/share_app", "com.mysql.jdbc.Driver","root","puremia1")
+    Database.connect("jdbc:mysql://localhost/share_app", "com.mysql.jdbc.Driver","root","******")
     transaction {
       create(User_t)
       create(Task_t)
