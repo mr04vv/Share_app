@@ -9,7 +9,7 @@ $ ./gradlew bootRun
   ```
   
 ## Reactプロジェクト実行方法
-コマンドラインで
+コマンドライン
 ```
 yarn start
 ```
