@@ -6,7 +6,7 @@ $ git clone [this repository]
 $ cd Share_app
 $ cd server
 $ ./gradlew bootRun
-  ```
+```
   
 ## Reactプロジェクト実行方法
 コマンドライン
