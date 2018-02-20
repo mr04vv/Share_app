@@ -8,4 +8,3 @@ class JsonTransformer(private val objectMapper: ObjectMapper) : ResponseTransfor
     override fun render(model: Any?): String =
             objectMapper.writeValueAsString(model)
 }
-echo "# kotlin_spark_demo" >> README.md
