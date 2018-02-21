@@ -1,2 +1,6 @@
 doc/node_modules
 front/node_modules
+.gradle
+.vscode
+sever/bin/
+sever/local.properties

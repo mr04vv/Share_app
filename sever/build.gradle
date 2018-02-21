@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		kotlinVersion = '1.1.61'
+		kotlinVersion = '1.2.21'
 		springBootVersion = '1.5.9.RELEASE'
 	}
 	repositories {
@@ -54,7 +54,8 @@ dependencies {
 	runtime group: 'org.jetbrains.exposed', name: 'exposed', version: '0.8.5'
 	compile group: 'org.jetbrains.exposed', name: 'spring-transaction', version: '0.8.5'
 	compile 'com.sparkjava:spark-core:2.6.0'
-	compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.8.8'
+//	compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.8.8'
+	compile("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.2")
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.8.8.1'
 	runtime "org.jetbrains.kotlin:kotlin-reflect:0.13.1513"
 	compile "com.google.code.gson:gson:2.8.0"
