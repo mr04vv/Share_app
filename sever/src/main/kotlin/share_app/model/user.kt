@@ -1,14 +1,9 @@
 package model
+
 import spark.Spark.*
-import db.*
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.Join.*
-import org.jetbrains.exposed.sql.Table.*
 import org.jetbrains.exposed.sql.transactions.*
-import org.jetbrains.exposed.sql.SchemaUtils.create
-import org.jetbrains.exposed.sql.SchemaUtils.drop
-import org.jetbrains.exposed.sql.statements.*
-import java.sql.Connection
+
 
 object User_t : Table("users") {
     val id = integer("id").autoIncrement().primaryKey()

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jetbrains.exposed:spring-transaction:0.8.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.exposed/spring-transaction/0.8.5/2ac066d7b1d9b809d29b53aece03dd29472e417f/spring-transaction-0.8.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.exposed/spring-transaction/0.8.5/caca2bcd5e4efdd04c4ecc92e0e54ce6922c8455/spring-transaction-0.8.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
