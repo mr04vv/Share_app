@@ -1,4 +1,4 @@
-package model
+package shareApp.model
 
 import java.security.MessageDigest
 
@@ -8,18 +8,18 @@ import java.security.MessageDigest
  * @license MIT
  */
 
-    /**
-     * Supported algorithms on Android:
-     *
-     * Algorithm	Supported API Levels
-     * MD5          1+
-     * SHA-1	    1+
-     * SHA-224	    1-8,22+
-     * SHA-256	    1+
-     * SHA-384	    1+
-     * SHA-512	    1+
-     */
-fun HashString(type: String, input: String): String {
+/**
+ * Supported algorithms on Android:
+ *
+ * Algorithm	Supported API Levels
+ * MD5          1+
+ * SHA-1	    1+
+ * SHA-224	    1-8,22+
+ * SHA-256	    1+
+ * SHA-384	    1+
+ * SHA-512	    1+
+ */
+fun hashString(type: String, input: String): String {
     val HEX_CHARS = "0123456789abcdefghi"
     val bytes = MessageDigest
             .getInstance(type)

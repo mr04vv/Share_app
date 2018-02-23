@@ -1,4 +1,4 @@
-package share_app
+package shareApp
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import spark.ResponseTransformer
