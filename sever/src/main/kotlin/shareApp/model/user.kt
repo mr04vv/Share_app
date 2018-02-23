@@ -31,9 +31,6 @@ data class ResponseUserDataWithToken(
 
 fun login(u: User): ResponseUserDataWithToken {
 
-    lateinit var group: Group
-    val group_id: MutableList<Group> = mutableListOf()
-
     u.password = hashString("SHA-256", u.password)
 
     transaction {
@@ -43,14 +40,13 @@ fun login(u: User): ResponseUserDataWithToken {
                     u.id = it[User_t.id]
                     /* u.group_id = it[User_t.group_id] */
                 }
-        (GroupMember_t innerJoin Group_t).slice(GroupMember_t.group_id, Group_t.name).select { GroupMember_t.user_id.eq(u.id) }.forEach {
-            group = Group(it[GroupMember_t.group_id], it[Group_t.name])
-            group_id += group
-        }
     }
     if (u.id == 0) throw halt(404, "wrong name or pass")
-    var token = createToken(u.id)
-    return ResponseUserDataWithToken(u.id, u.name, group_id, token)
+
+    val token = createToken(u.id)
+    val groups = getGroups(findUserIdByToken(token))
+
+    return ResponseUserDataWithToken(u.id, u.name, groups, token)
 }
 
 fun addUser(u: User): ResponseUserData {
@@ -105,4 +101,19 @@ fun getUserList(group: Int): MutableList<GroupMember> {
                 }
     }
     return users
+}
+
+fun getGroups(useId: Int): MutableList<Group> {
+
+    var group: Group
+    val groups: MutableList<Group> = mutableListOf()
+
+    transaction {
+        (GroupMember_t innerJoin Group_t).slice(Group_t.id, Group_t.name).select {
+            GroupMember_t.user_id.eq(useId)
+        }.forEach {
+                    groups += Group(it[Group_t.id], it[Group_t.name])
+                }
+    }
+    return groups
 }

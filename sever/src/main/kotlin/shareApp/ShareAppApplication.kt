@@ -16,7 +16,8 @@ fun main(args: Array<String>) {
     path("/users") {
         get("", UserController().getUser(), toJson)
         get("/me", UserController().getUserMe(), toJson)
-        get("/group/:id", UserController().getUserList(), toJson)
+        get("/groups/:id", UserController().getUserList(), toJson)
+        get("/groups",UserController().getGroups(), toJson)
         post("", UserController().addUser(), toJson)
     }
 
