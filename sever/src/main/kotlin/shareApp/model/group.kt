@@ -1,4 +1,5 @@
-package model
+package shareApp.model
+
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import spark.Spark.halt
@@ -15,22 +16,22 @@ object GroupMember_t : Table("group_members") {
 }
 
 data class GroupMember(
-  var id : Int? = 0,
-  var name :String =""
-  )
-
-data class Group(
-    var id : Int? = null,
-    var name : String? = null
+        var id: Int? = 0,
+        var name: String = ""
 )
 
-fun addGroup(group: Group) : Group{
+data class Group(
+        var id: Int? = null,
+        var name: String? = null
+)
+
+fun addGroup(group: Group): Group {
 
     transaction {
-       group.id = Group_t.insert {
+        group.id = Group_t.insert {
             it[Group_t.name] = group.name
         } get Group_t.id
     }
-    if(group.id == 0) throw halt(400,"can't create group")
+    if (group.id == 0) throw halt(400, "can't create group")
     return group
 }
