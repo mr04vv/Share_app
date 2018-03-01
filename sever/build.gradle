@@ -58,4 +58,17 @@ dependencies {
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.8.8.1'
 	runtime "org.jetbrains.kotlin:kotlin-reflect:0.13.1513"
 	compile "com.google.code.gson:gson:2.8.0"
+
+	task stage(type: Copy, dependsOn: [clean, build]) {
+    from jar.archivePath
+    into project.rootDir 
+    rename {
+        'app.jar'
+    }
+}
+stage.mustRunAfter(clean)
+
+clean << {
+    project.file('app.jar').delete()
+}
 }
