@@ -1,12 +1,12 @@
 package shareApp
 
 import shareApp.conf.Routes
-import shareApp.db.dbConnectHeroku
+import shareApp.db.*
 
 fun main(args: Array<String>) { 
 
-    // dbConnect() //データベース接続
-    dbConnectHeroku()
+    dbConnect() //localDBに接続
+    // dbConnectHeroku() //herokuのpostgreに接続
     filter() //cors許容
     Routes().init()
     

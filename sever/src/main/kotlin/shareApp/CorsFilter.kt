@@ -18,6 +18,6 @@ fun getHerokuAssignedPort(): Int {
     val processBuilder = ProcessBuilder()
     return if (processBuilder.environment()["PORT"] != null) {
         Integer.parseInt(processBuilder.environment()["PORT"])
-    } else 4568
+    } else 4567
 //return default port if heroku-port isn't set (i.e. on localhost)
 }
