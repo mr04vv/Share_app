@@ -28,4 +28,8 @@ class UserController {
     fun login(): Route = Route { req, _ ->
         login(jacksonObjectMapper().readValue(req.body()))
     }
+
+    fun getGroups(): Route = Route { req, _ ->
+        getGroups(findUserIdByToken(req.headers("token")))
+    }
 }
