@@ -1,8 +1,13 @@
 import React from "react"
 import ReactDOM from 'react-dom'
-import InputTask from "./component/InputTask"
+import InputTask from "./components/InputTask"
+import App from "./containers/App"
+import Login from "./components/Login"
 
 ReactDOM.render(
-    <InputTask/>,
+    <div>
+        <App/>
+        <Login/>
+    </div>,
     document.getElementById('root')
 );
