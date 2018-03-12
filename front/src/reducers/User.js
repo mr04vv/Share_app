@@ -1,39 +1,11 @@
 import React from 'react'
+import {EmailType, PassType} from "../actions/LoginAction";
 
 /* Storeの実装 */
-//
-// const initialState = {
-//     flag: true,
-//     value: "入力してください",
-//     number: 0
-// };
-//
-// export default function formReducer(state = initialState, action) {
-//
-//     const { flag, text, number } = action;
-//     switch (action.type) {
-//         case "SUBMIT":
-//             // 今回ここでは状態の更新だけだが、action の値によってさらに別な値も変えたりするなど
-//             return Object.assign({}, state, {
-//                 text: text,
-//                 number: number
-//             });
-//         case "SHOW":
-//             return Object.assign({}, state, {
-//                 flag: true
-//             });
-//         case "HIDE":
-//             return Object.assign({}, state, {
-//                 flag: false
-//             });
-//         default:
-//             return state;
-//     }
-// }
-
 const initialState = () => {
     return {
-        value: "ddd"
+        email: "",
+        password: ""
     }
 };
 
@@ -41,9 +13,13 @@ const initialState = () => {
 
 export default function Reducer(state=initialState, action) {
     switch(action.type){
-        case "CHANGE_TEXT":
+        case EmailType:
             return Object.assign({}, state, {
-                value: action.payload.text
+                email: action.payload.email
+            });
+        case PassType:
+            return Object.assign({}, state, {
+                password: action.payload.password
             });
         default:
             return state;
