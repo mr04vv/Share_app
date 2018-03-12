@@ -1,16 +1,10 @@
-import React, {Component} from "react"
+import React from 'react'
 
-export default class InputTask extends Component {
 
-    constructor(props) {
-        super(props);
-    }
+const Result = ({ result }) => (
+    <div>
+        Result: <span>{result}</span>
+    </div>
+);
 
-    render() {
-        return (
-            <div>
-                <input type={"text"} id={"task"} placeholder={"タスク名を入力してください"}/>
-            </div>
-        )
-    }
-}
+export default Result
