@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import "typeface-roboto"
-import FontIcon from 'material-ui/FontIcon';
+import Logout from 'material-ui/svg-icons/action/power-settings-new'
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
@@ -36,7 +36,8 @@ const Logged = (props) => (
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
     >
         <MenuItem primaryText={"設定"} rightIcon={<Settings></Settings>} style={iconStyle}/>
-        <MenuItem primaryText="ログアウト" style={iconStyle} onClick={() => props.logout(props.isLogin,props.name)}/>
+        <MenuItem primaryText="ログアウト" style={iconStyle} onClick={() => props.logout(props.isLogin,props.name)}
+                  rightIcon={<Logout></Logout>}/>
     </IconMenu>
     </div>
 );
