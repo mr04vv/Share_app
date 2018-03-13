@@ -1,11 +1,11 @@
-import React from 'react'
-import {EmailType, PassType} from "../actions/LoginAction";
+import {EmailType, PassType, LoginType, LogoutType} from "../actions/LoginAction";
 
 /* Storeの実装 */
 const initialState = () => {
     return {
         email: "",
-        password: ""
+        password: "",
+        isLogin: false
     }
 };
 
@@ -20,6 +20,15 @@ export default function Reducer(state=initialState, action) {
         case PassType:
             return Object.assign({}, state, {
                 password: action.payload.password
+            });
+        case LoginType:
+            return Object.assign({}, state, {
+                isLogin: true
+            });
+        case LogoutType:
+            return Object.assign({}, state, {
+                isLogin: false,
+                email: action.payload.email
             });
         default:
             return state;

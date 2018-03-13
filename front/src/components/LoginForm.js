@@ -1,6 +1,8 @@
 import React,{Component} from "react"
 import {Card,  CardHeader} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import {orange500, fullWhite} from 'material-ui/styles/colors';
+
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -26,7 +28,6 @@ const titleStyle = {
     marginTop: "50px",
     fontSize: "20px",
     paddingLeft: "80px",
-
 };
 
 const headerStyle = {
@@ -35,30 +36,50 @@ const headerStyle = {
 
 export default class LoginForm extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
-
     render() {
-        const { email, password } = this.props;
-        return(
-            <div>
-                <MuiThemeProvider>
-                    <Card style={FormStyle}>
-                        <CardHeader title={"ログイン"} titleStyle={titleStyle} style={headerStyle}/>
-                        <TextField type={"text"}  id="email" floatingLabelText={"ユーザーネーム"} onChange={(e) => this.props.inputEmail(e.target.value)} hintStyle={inputStyle} />
-                        <br/>
-                        <TextField type={"password"} id={"password"} floatingLabelText={"パスワード"} onChange={(e) => this.props.inputPassword(e.target.value)} style={inputStyle}/>
-                        <br/>
-                        <RaisedButton label={"ログイン"} style={buttonStyle} backgroundColor={"orange"} labelColor={"white"}/>
-                    </Card>
-                    <h1>{email}</h1>
-                    <h2>{password}</h2>
-                </MuiThemeProvider>
+        const { email, password, isLogin, inputEmail, inputPassword, login } = this.props;
 
-            </div>
-        )
+        if (!isLogin) {
+            return (
+                <div>
+                    <MuiThemeProvider>
+                        <div>
+                            <Card style={FormStyle}>
+                                <CardHeader title={"ログイン"} titleStyle={titleStyle} style={headerStyle}/>
+                                <TextField type={"text"} ref={"em"} id="email" floatingLabelText={"ユーザーネーム"}
+                                           onChange={(e) => {
+                                               inputEmail(e.target.value);
+                                           }} hintStyle={inputStyle}/>
+                                <br/>
+                                <TextField type={"password"} id={"password"} floatingLabelText={"パスワード"}
+                                           onChange={(e) => inputPassword(e.target.value)} style={inputStyle}/>
+                                <br/>
+                                <RaisedButton label={"ログイン"} style={buttonStyle} backgroundColor={orange500}
+                                              labelColor={fullWhite} onClick={() => login(isLogin)}/>
+                            </Card>
+                            <h1>{email}</h1>
+                            <h2>{password}</h2>
+                        </div>
+                    </MuiThemeProvider>
+                </div>
+            )
+        }
+
+        if (isLogin) {
+            return (
+                <div>
+                    <MuiThemeProvider>
+                        <div>
+                            <Card style={FormStyle}>
+                                <CardHeader title={"ログイン"} titleStyle={titleStyle} style={headerStyle}/>
+                                <h2>ようこそ、{email}さん</h2>
+                                <br/>
+                            </Card>
+                        </div>
+                    </MuiThemeProvider>
+                </div>
+            )
+        }
     }
 
 }
