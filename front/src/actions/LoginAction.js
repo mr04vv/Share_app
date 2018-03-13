@@ -3,6 +3,7 @@ export const EmailType = "EMAIL";
 export const PassType = "PASSWORD";
 export const LoginType = "LOGIN";
 export const LogoutType = "LOGOUT";
+export const ErrorType = "ERROR";
 
 export const inputEmail = (email) => {
     return {
@@ -37,6 +38,15 @@ export const logout = (isLogin,email) => {
         payload: {
             isLogin,
             email
+        }
+    }
+};
+
+export const setError = (error) => {
+    return {
+        type: ErrorType,
+        payload: {
+            error
         }
     }
 };
