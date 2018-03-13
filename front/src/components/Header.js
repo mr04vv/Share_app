@@ -42,6 +42,7 @@ const Logged = (props) => (
     </div>
 );
 
+
 export default class Header extends Component {
 
     render() {
@@ -49,6 +50,7 @@ export default class Header extends Component {
 
         return (
             <div className={"header"}>
+
                 <MuiThemeProvider>
                     <AppBar title={"ShareTask"} showMenuIconButton={false} style={headerStyle}
                             iconElementRight={isLogin ? <Logged name={email} isLogin={isLogin} logout={logout} /> : <div></div>}/>

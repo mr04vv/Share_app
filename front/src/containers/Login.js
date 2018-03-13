@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';//react-reduxの機能
-import {inputEmail,inputPassword, login, logout} from '../actions/LoginAction';　//ファイル追加②
+import {inputEmail,inputPassword, login, logout, setError} from '../actions/LoginAction';　//ファイル追加②
 import Login from '../components/LoginForm'
 
-function mapStateToProps({email, password, isLogin}) {
+function mapStateToProps({email, password, isLogin, error}) {
     return {
         email,
         password,
-        isLogin
+        isLogin,
+        error
     };
 }
 
@@ -23,6 +24,9 @@ function mapDispatchToProps(dispatch) {
         },
         logout(isLogin) {
             dispatch(logout(isLogin))
+        },
+        setError(error) {
+            dispatch(setError(error))
         }
     }
 }

@@ -1,11 +1,12 @@
-import {EmailType, PassType, LoginType, LogoutType} from "../actions/LoginAction";
+import {EmailType, PassType, LoginType, LogoutType, ErrorType} from "../actions/LoginAction";
 
 /* Storeの実装 */
 const initialState = () => {
     return {
         email: "",
         password: "",
-        isLogin: false
+        isLogin: false,
+        error: ""
     }
 };
 
@@ -28,7 +29,13 @@ export default function Reducer(state=initialState, action) {
         case LogoutType:
             return Object.assign({}, state, {
                 isLogin: false,
-                email: action.payload.email
+                email: action.payload.email,
+                password: action.payload.password,
+                error: action.payload.error
+            });
+        case ErrorType:
+            return Object.assign({}, state, {
+                error: '必須項目です'
             });
         default:
             return state;

@@ -1,20 +1,21 @@
 import React,{Component} from "react"
 import {Card,  CardHeader} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import {orange500, fullWhite} from 'material-ui/styles/colors';
+import {red500, orange500, fullWhite} from 'material-ui/styles/colors';
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const FormStyle = {
     width: "500px",
-    margin: "150px auto",
+    margin: "120px auto",
     textAlign: "center",
     marginBottom:"20px"
 };
 
 const inputStyle = {
-    textAlign: "center"
+    textAlign: "center",
+    marginBottom: '30px'
 };
 
 const buttonStyle = {
@@ -34,10 +35,20 @@ const headerStyle = {
   paddingRight: "0px"
 };
 
+const errorStyle = {
+  color: red500
+};
+
+let error = '';
+
+const changeError = () => {
+    error = 'mkm';
+};
+
 export default class LoginForm extends Component {
 
     render() {
-        const { email, password, isLogin, inputEmail, inputPassword, login } = this.props;
+        const { email, password, isLogin, inputEmail, inputPassword, login, error, setError} = this.props;
 
         if (!isLogin) {
             return (
@@ -47,15 +58,15 @@ export default class LoginForm extends Component {
                             <Card style={FormStyle}>
                                 <CardHeader title={"ログイン"} titleStyle={titleStyle} style={headerStyle}/>
                                 <TextField type={"text"} ref={"em"} id="email" floatingLabelText={"ユーザーネーム"}
-                                           onChange={(e) => {
-                                               inputEmail(e.target.value);
-                                           }} hintStyle={inputStyle}/>
+                                           errorText={email ? "" : error} errorStyle={errorStyle}
+                                           onChange={(e) => { inputEmail(e.target.value);}} hintStyle={inputStyle} style={inputStyle}/>
                                 <br/>
                                 <TextField type={"password"} id={"password"} floatingLabelText={"パスワード"}
+                                           errorText={password ? "" : error} errorStyle={errorStyle}
                                            onChange={(e) => inputPassword(e.target.value)} style={inputStyle}/>
                                 <br/>
                                 <RaisedButton label={"ログイン"} style={buttonStyle} backgroundColor={orange500}
-                                              labelColor={fullWhite} onClick={() => login(isLogin)}/>
+                                              labelColor={fullWhite} onClick={(email && password) ? () => login(isLogin) : () => setError(error)}/>
                             </Card>
                             <h1>{email}</h1>
                             <h2>{password}</h2>
