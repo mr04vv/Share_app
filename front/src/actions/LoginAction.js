@@ -1,7 +1,8 @@
-import React from 'react'
 
 export const EmailType = "EMAIL";
 export const PassType = "PASSWORD";
+export const LoginType = "LOGIN";
+export const LogoutType = "LOGOUT";
 
 export const inputEmail = (email) => {
     return {
@@ -17,6 +18,25 @@ export const inputPassword = (password) => {
         type: PassType,
         payload: {
             password
+        }
+    };
+};
+
+export const login = (isLogin) => {
+    return {
+        type: LoginType,
+        payload: {
+            isLogin
+        }
+    }
+};
+
+export const logout = (isLogin,email) => {
+    return {
+        type: LogoutType,
+        payload: {
+            isLogin,
+            email
         }
     }
 };
