@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import Header from './containers/Header'
 import Login from "./containers/Login"
 import Register from './containers/Register'
-import createStore from './createStore'
+import {createStore} from 'redux'
 import reducer from "./reducers/User"
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
