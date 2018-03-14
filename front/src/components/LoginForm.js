@@ -44,7 +44,7 @@ const registerStyle = {
 export default class LoginForm extends Component {
 
     render() {
-        const { email, password, isLogin, inputEmail, inputPassword, login, error, setError, onMount} = this.props;
+        const { email, password, isLogin, inputEmail, inputPassword, login, error, setError} = this.props;
 
         if (!isLogin) {
             return (
@@ -62,7 +62,7 @@ export default class LoginForm extends Component {
                                            onChange={(e) => inputPassword(e.target.value)} style={inputStyle}/>
                                 <br/>
                                 <RaisedButton label={"ログイン"} style={buttonStyle} backgroundColor={orange500}
-                                              labelColor={fullWhite} onClick={(email && password) ? () => onMount(isLogin,email,password) : () => setError(error)}/>
+                                              labelColor={fullWhite} onClick={(email && password) ? () => login(isLogin,email,password) : () => setError(error)}/>
                                 <br/>
                                 <text style={registerStyle}>登録がお済みでない方は<Link to={'register'}>新規登録画面</Link>へ</text>
                             </Card>

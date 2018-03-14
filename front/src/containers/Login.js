@@ -19,7 +19,7 @@ function mapDispatchToProps(dispatch) {
         inputPassword(password) {
             dispatch(inputPassword(password))
         },
-        onMount (isLogin,email,password) {
+        login(isLogin,email,password) {
             dispatch(login(isLogin,email,password))
         },
         logout(isLogin) {
