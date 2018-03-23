@@ -1,34 +1,25 @@
 import { connect } from 'react-redux';//react-reduxの機能
-import {inputEmail,inputPassword, login, logout, setError} from '../actions/LoginAction';　//ファイル追加②
+// import {} from '../actions/LoginAction';　//ファイル追加②
 import Login from '../components/LoginForm'
+import {logout, loginAction} from "../actions/LoginAction";
 
-function mapStateToProps({email, password, isLogin, error}) {
-    return {
-        email,
-        password,
-        isLogin,
-        error
+function mapStateToProps({token, userName}) {
+    return  {
+        token,
+        userName
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        inputEmail(email) {
-            dispatch(inputEmail(email))
+        logout(token) {
+            dispatch(logout(token))
         },
-        inputPassword(password) {
-            dispatch(inputPassword(password))
-        },
-        login(isLogin,email,password) {
-            dispatch(login(isLogin,email,password))
-        },
-        logout(isLogin) {
-            dispatch(logout(isLogin))
-        },
-        setError(error) {
-            dispatch(setError(error))
+        loginAction(name,pass,token) {
+            dispatch(loginAction(name,pass,token))
         }
-    }
+    };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);

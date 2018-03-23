@@ -2,18 +2,17 @@ import {connect} from "react-redux";
 import Header from "../components/Header";
 import {logout} from '../actions/LoginAction'
 
-function mapStateToProps({email, password, isLogin}) {
+function mapStateToProps({token, userName}) {
     return {
-        email,
-        password,
-        isLogin
+        token,
+        userName
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        logout(isLogin) {
-            dispatch(logout(isLogin))
+        logout(token) {
+            dispatch(logout(token))
         }
     }
 }

@@ -1,7 +1,8 @@
 import React from "react"
 import ReactDOM from 'react-dom'
 import Header from './containers/Header'
-import Login from "./containers/Login"
+// import Login from "./components/LoginForm"
+import Login from './containers/Login'
 import Register from './containers/Register'
 import {createStore} from 'redux'
 import reducer from "./reducers/User"
@@ -18,7 +19,9 @@ ReactDOM.render(
             <Router>
                 <div>
                     <Route path={'/'} component={() => <Redirect to={'login'}/>}/>
+
                 <Route path={"/login"} component={Login}/>
+
                 <Route path={"/register"} component={Register}/>
                 </div>
             </Router>
