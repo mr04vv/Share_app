@@ -11,8 +11,8 @@ object Group_t : Table("groups") {
 
 object GroupMember_t : Table("group_members") {
     val id = integer("id").autoIncrement().primaryKey()
-    val group_id = (integer("group_id") references Group_t.id)
-    val user_id = (integer("user_id") references User_t.id)
+    val group_id = integer("group_id").references(Group_t.id, ReferenceOption.CASCADE)
+    val user_id = integer("user_ida").references(User_t.id, ReferenceOption.CASCADE)
 }
 
 data class GroupMember(
