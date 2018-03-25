@@ -58,12 +58,14 @@ export default class LoginForm extends Component {
     }
 
     inputName(name) {
+        this.props.initErr();
         this.setState ({
             name: name
         });
     }
 
     inputPassword(pass) {
+        this.props.initErr();
         this.setState ({
             password: pass
         });

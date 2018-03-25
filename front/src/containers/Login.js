@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';//react-reduxの機能
 import Login from '../components/LoginForm'
-import {logout, loginAction} from "../actions/LoginAction";
+import {logout, loginAction, initErr} from "../actions/LoginAction";
 
 function mapStateToProps({token, userName, err}) {
     return  {
@@ -17,6 +17,9 @@ function mapDispatchToProps(dispatch) {
         },
         loginAction(name,pass,token) {
             dispatch(loginAction(name,pass,token))
+        },
+        initErr(err) {
+            dispatch(initErr(err))
         }
     };
 }

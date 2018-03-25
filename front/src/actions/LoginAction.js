@@ -6,7 +6,8 @@ export const Login = "LOGIN";
 export const LogoutType = "LOGOUT";
 export const ReceiveType = "RECEIVE";
 export const ReceiveReqType = "RECEIVE_REQUEST";
-export const ReceiveFailure = 'RECEIVE_FAILURE'
+export const ReceiveFailure = 'RECEIVE_FAILURE';
+export const InitError = 'INIT_ERROR';
 
 function receiveUserData(json) {
     return {
@@ -116,5 +117,13 @@ export const logout = (token) => {
     }
 };
 
+export const initErr = (err) => {
+    return {
+        type: InitError,
+        payload: {
+            err
+        }
+    }
+};
 
 

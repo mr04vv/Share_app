@@ -36,6 +36,10 @@ export default function Reducer(state=initialState, action) {
             return Object.assign({}, state, {
                 err: action.error
             });
+        case actions.InitError:
+            return Object.assign({}, state, {
+                err: ""
+            });
 
         default:
             return state;
