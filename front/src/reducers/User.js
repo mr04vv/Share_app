@@ -1,12 +1,14 @@
 import {Login, LogoutType} from "../actions/LoginAction";
-import {RegisterType} from "../actions/RegisterAction";
+import {RegisterFailureType, RegisterReceiveType, RegisterType} from "../actions/RegisterAction";
 import * as actions from '../actions/LoginAction'
 /* Storeの実装 */
+
 
 const initialState = {
         token : "",
         userName: "",
-        err: ""
+        err: "",
+        json: {}
 };
 
 //actuonで定義したtypeを元に調整
@@ -39,6 +41,14 @@ export default function Reducer(state=initialState, action) {
         case actions.InitError:
             return Object.assign({}, state, {
                 err: ""
+            });
+        case RegisterFailureType:
+            return Object.assign({}, state, {
+                err: action.error
+            });
+        case RegisterReceiveType:
+            return Object.assign({}, state, {
+                userName: action.name
             });
 
         default:

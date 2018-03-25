@@ -98,7 +98,7 @@ export default class LoginForm extends Component {
 
     render() {
 
-        const {token, userName, err} = this.props;
+        const {token, userName, err, json} = this.props;
 
         if (token === "") {
             return (

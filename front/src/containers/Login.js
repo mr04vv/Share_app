@@ -2,11 +2,12 @@ import { connect } from 'react-redux';//react-reduxの機能
 import Login from '../components/LoginForm'
 import {logout, loginAction, initErr} from "../actions/LoginAction";
 
-function mapStateToProps({token, userName, err}) {
+function mapStateToProps({token, userName, err, json}) {
     return  {
         token,
         userName,
-        err
+        err,
+        json
     };
 }
 

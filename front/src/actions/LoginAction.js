@@ -9,12 +9,14 @@ export const ReceiveReqType = "RECEIVE_REQUEST";
 export const ReceiveFailure = 'RECEIVE_FAILURE';
 export const InitError = 'INIT_ERROR';
 
-function receiveUserData(json) {
+function receiveUserData(json,status) {
     return {
         type: ReceiveType,
         token: json.token,
-        name: json.name
-
+        name: json.name,
+        group: json.group,
+        json: json,
+        status: status
     }
 }
 
