@@ -36,7 +36,7 @@ const Logged = (props) => (
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
     >
         <MenuItem primaryText={"設定"} rightIcon={<Settings></Settings>} style={iconStyle}/>
-        <MenuItem primaryText="ログアウト" style={iconStyle} onClick={() => props.logout(props.isLogin,props.name)}
+        <MenuItem primaryText="ログアウト" style={iconStyle} onClick={() => {props.logout(props.token,props.name);}}
                   rightIcon={<Logout></Logout>}/>
     </IconMenu>
     </div>
@@ -46,14 +46,14 @@ const Logged = (props) => (
 export default class Header extends Component {
 
     render() {
-        const {isLogin, email, logout} = this.props;
+        const {token, userName, logout} = this.props;
 
         return (
             <div className={"header"}>
 
                 <MuiThemeProvider>
                     <AppBar title={"ShareTask"} showMenuIconButton={false} style={headerStyle}
-                            iconElementRight={isLogin ? <Logged name={email} isLogin={isLogin} logout={logout} /> : <div></div>}/>
+                            iconElementRight={(token !== "") ? <Logged name={userName} token={token} logout={logout} /> : <div></div>}/>
                 </MuiThemeProvider>
             </div>
         )
