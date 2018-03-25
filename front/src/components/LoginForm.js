@@ -3,7 +3,6 @@ import {Card,  CardHeader} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {red500, orange500, fullWhite} from 'material-ui/styles/colors';
 import { Link } from 'react-router-dom'
-import {loginAction} from "../actions/LoginAction";
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -42,6 +41,11 @@ const registerStyle = {
     marginBottom: '10px'
 };
 
+const loginErrStyle = {
+    fontSize: '10px',
+    color: red500
+};
+
 export default class LoginForm extends Component {
 
     constructor(props) {
@@ -49,7 +53,7 @@ export default class LoginForm extends Component {
         this.state = {
             name : "",
             password : "",
-            err : ""
+            err: ""
         }
     }
 
@@ -73,17 +77,26 @@ export default class LoginForm extends Component {
 
     login(name,password) {
         this.props.loginAction(name,password);
-        this.setState({
-            name:'',
-            password:''
-        })
     }
 
+    init() {
+        this.setState({
+            name:'',
+            password:'',
+            err:''
+        })
+    };
+
+    componentWillReceiveProps() {
+        if (this.props.token !== "") {
+            this.init()
+        }
+    }
 
 
     render() {
 
-        const {token, userName} = this.props;
+        const {token, userName, err} = this.props;
 
         if (token === "") {
             return (
@@ -91,17 +104,23 @@ export default class LoginForm extends Component {
                     <MuiThemeProvider>
                         <div>
                             <Card style={FormStyle}>
-                                <CardHeader title={"ログイン"} titleStyle={titleStyle} />
+                                <CardHeader title={"ログイン"} titleStyle={titleStyle}/>
                                 <TextField type={"text"} ref={"em"} id="email" floatingLabelText={"ユーザーネーム"}
                                            errorText={this.state.name ? "" : this.state.err} errorStyle={errorStyle}
-                                           onChange={(e) => { this.inputName(e.target.value);}} hintStyle={inputStyle} style={inputStyle}/>
+                                           onChange={(e) => {
+                                               this.inputName(e.target.value);
+                                           }} hintStyle={inputStyle} style={inputStyle}/>
                                 <br/>
                                 <TextField type={"password"} id={"password"} floatingLabelText={"パスワード"}
-                                           errorText={this.state.password ? "" : this.state.err} errorStyle={errorStyle}
+                                           errorText={this.state.password ? "" : this.state.err}
+                                           errorStyle={errorStyle}
                                            onChange={(e) => this.inputPassword(e.target.value)} style={inputStyle}/>
                                 <br/>
+                                <text style={loginErrStyle}>{((this.state.name || this.state.password) && err) ? "ログインできませんでした" : ""}</text>
+                                <br/>
                                 <RaisedButton label={"ログイン"} style={buttonStyle} backgroundColor={orange500}
-                                              labelColor={fullWhite} onClick={(this.state.name && this.state.password) ? () => this.login(this.state.name, this.state.password) : () => this.setError()}/>
+                                              labelColor={fullWhite}
+                                              onClick={(this.state.name && this.state.password) ? () => this.login(this.state.name, this.state.password) : () => this.setError()}/>
                                 <br/>
                                 <text style={registerStyle}>登録がお済みでない方は<Link to={'register'}>新規登録画面</Link>へ</text>
                             </Card>
@@ -114,6 +133,7 @@ export default class LoginForm extends Component {
         }
 
         if (token !== "") {
+
             return (
                 <div>
                     <MuiThemeProvider>

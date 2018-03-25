@@ -1,23 +1,65 @@
-import fetchJsonp from 'fetch-jsonp'
-import qs from 'qs'
-import thunk from 'redux-thunk'
+
 
 const Login_URL = 'http://localhost:4567/login';
 
 export const Login = "LOGIN";
 export const LogoutType = "LOGOUT";
+export const ReceiveType = "RECEIVE";
+export const ReceiveReqType = "RECEIVE_REQUEST";
+export const ReceiveFailure = 'RECEIVE_FAILURE'
+
+function receiveUserData(json) {
+    return {
+        type: ReceiveType,
+        token: json.token,
+        name: json.name
+
+    }
+}
+
+function receiveRequest () {
+    return {
+        type: ReceiveReqType
+    }
+}
+
+function receiveFailure(error) {
+    return {
+        type: ReceiveFailure,
+        error: error
+    }
+}
 
 export const loginAction = (name,pass,token) => {
 
     console.log(name);
     console.log(pass);
 
-    return {
-        type: Login,
-        payload: {
-            name
-        }
+    return (dispatch) => {
+        dispatch(receiveRequest());
+        return fetch(Login_URL, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                password: pass
+            }),
+        })
+            .then((response) => response.json())
+            .then(json => dispatch(receiveUserData(json)))
+            .catch(err => dispatch(receiveFailure(err)));
     }
+};
+
+    // return {
+    //     type: Login,
+    //     payload: {
+    //         name
+    //     }
+    // };
     // const delay = (mSec) => new Promise((resolve) => setTimeout(resolve, mSec))
 
     // fetch(`http://api.openweathermap.org/data/2.5/weather?appid=${this.OpenWeatherMapKey}&id=${
@@ -63,7 +105,7 @@ export const loginAction = (name,pass,token) => {
     //     }
     //     dispatch(finishReq(isLogin));
     // }
-};
+// };
 
 export const logout = (token) => {
     return {

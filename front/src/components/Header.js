@@ -36,7 +36,7 @@ const Logged = (props) => (
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
     >
         <MenuItem primaryText={"設定"} rightIcon={<Settings></Settings>} style={iconStyle}/>
-        <MenuItem primaryText="ログアウト" style={iconStyle} onClick={() => props.logout(props.token,props.name)}
+        <MenuItem primaryText="ログアウト" style={iconStyle} onClick={() => {props.logout(props.token,props.name);}}
                   rightIcon={<Logout></Logout>}/>
     </IconMenu>
     </div>

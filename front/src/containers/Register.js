@@ -1,12 +1,7 @@
 import { connect } from 'react-redux';//react-reduxの機能
 import { registerAction } from '../actions/RegisterAction'　//ファイル追加②
-import { inputEmail, inputPassword, setError} from "../actions/LoginAction";
 import Register from '../components/RegisterForm'
 
-function mapStateToProps({}) {
-    return {
-    };
-}
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -16,4 +11,4 @@ function mapDispatchToProps(dispatch) {
      }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(mapDispatchToProps)(Register);
