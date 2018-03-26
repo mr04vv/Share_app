@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
+const REGISTER_URL = 'http://localhost:4567/users';
+
 const FormStyle = {
     width: "500px",
     margin: "40px auto",
@@ -41,6 +43,11 @@ const registerStyle = {
     marginBottom: '10px'
 };
 
+const registerErrStyle = {
+    fontSize: '10px',
+    color: red500
+};
+
 export default class RegisterForm extends Component {
 
     constructor(props) {
@@ -49,17 +56,21 @@ export default class RegisterForm extends Component {
             name : "",
             password : "",
             confirm: "",
-            err: ''
+            err: '',
+            register: false,
+            nameErr: ''
         }
     }
 
     inputName(name) {
+        this.initNameErr();
         this.setState ({
             name: name
         });
     }
 
     inputPassword(pass,confirm) {
+        this.initNameErr();
         this.setState ({
             password: pass,
             confirm: confirm
@@ -72,48 +83,117 @@ export default class RegisterForm extends Component {
         })
     }
 
+    componentWillReceiveProps() {
+        if (this.props.userName !== "") {
+            this.setState({
+                register: true
+            })
+        }
+    }
+
+    registerAction(name,pass) {
+        console.log(name);
+        console.log(pass);
+
+        fetch(REGISTER_URL, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                password: pass
+            }),
+        })
+            .then((response) => response.json())
+            .then(json => {
+                if (json.name !== "") {
+                    this.setState({
+                        register: true
+                    })
+                }
+            })
+            .catch(err => {
+                this.setState({
+                    nameErr: err
+                })
+            });
+    }
+
+    initNameErr() {
+        this.setState({
+            nameErr: ""
+        })
+    }
+
     render() {
 
-        const {registerAction} = this.props;
+        const {registerAction, err, userName} = this.props;
 
-        return (
-            <div>
-                <MuiThemeProvider>
-                    <div>
-                        <Card style={FormStyle}>
-                            <CardHeader title={"新規登録画面"} titleStyle={titleStyle} />
-                            <TextField type={"text"} ref={"em"} id="email" floatingLabelText={"ユーザーネーム"}
-                                       errorText={this.state.name ? "" : this.state.err} errorStyle={errorStyle}
-                                       onChange={(e) => { this.inputName(e.target.value);}} hintStyle={inputStyle} style={inputStyle}/>
-                            <br/>
-                            <TextField type={"password"} id={"password"} floatingLabelText={"パスワード"}
-                                       errorText={this.state.password ? "" : this.state.err} errorStyle={errorStyle}
-                                       onChange={(e) => this.inputPassword(e.target.value,this.state.confirm)} style={inputStyle}/>
-                            <br/>
-                            <TextField type={"password"} id={"password"} floatingLabelText={"パスワードの確認"}
-                                       errorText={
-                                           (this.state.password !== this.state.confirm) ? 'パスワードが異なります' : this.state.confirm ? '' : this.state.err
-                                       }
-                                        errorStyle={errorStyle}
-                                       onChange={(e) => this.inputPassword(this.state.password,e.target.value)} style={inputStyle}/>
-                            <br/>
-                            <RaisedButton label={"新規登録"} style={buttonStyle} backgroundColor={orange500}
-                                          labelColor={fullWhite} onClick={() => {
-                                                if (this.state.name && this.state.password && this.state.confirm) {
-                                                    return registerAction(this.state.name, this.state.password, this.state.confirm)
-                                                } else {
-                                                    return this.setError()
-                                                }
-                                            }
-                                        }/>
-                            <br/>
-                            <text style={registerStyle}>登録がお済みの方は<Link to={{pathname:'/login'}} >ログイン画面</Link>へ</text>
-                        </Card>
-                        <h1>{this.state.name}</h1>
-                        <h2>{this.state.password}</h2>
-                    </div>
-                </MuiThemeProvider>
-            </div>
-        )
+        if (this.state.register === false) {
+            return (
+                <div>
+                    <MuiThemeProvider>
+                        <div>
+                            <Card style={FormStyle}>
+                                <CardHeader title={"新規登録画面"} titleStyle={titleStyle}/>
+                                <TextField type={"text"} ref={"em"} id="email" floatingLabelText={"ユーザーネーム"}
+                                           errorText={this.state.name ? "" : this.state.err} errorStyle={errorStyle}
+                                           onChange={(e) => {
+                                               this.inputName(e.target.value);
+                                           }} hintStyle={inputStyle} style={inputStyle}/>
+                                <br/>
+                                <TextField type={"password"} id={"password"} floatingLabelText={"パスワード"}
+                                           errorText={this.state.password ? "" : this.state.err} errorStyle={errorStyle}
+                                           onChange={(e) => this.inputPassword(e.target.value, this.state.confirm)}
+                                           style={inputStyle}/>
+                                <br/>
+                                <TextField type={"password"} id={"password"} floatingLabelText={"パスワードの確認"}
+                                           errorText={
+                                               (this.state.password !== this.state.confirm) ? 'パスワードが異なります' : this.state.confirm ? '' : this.state.err
+                                           }
+                                           errorStyle={errorStyle}
+                                           onChange={(e) => this.inputPassword(this.state.password, e.target.value)}
+                                           style={inputStyle}/>
+                                <br/>
+                                <text
+                                    style={registerErrStyle}>{((this.state.name || this.state.password) && this.state.nameErr) ? "そのユーザー名は使用できません" : ""}</text>
+                                <br/>
+                                <RaisedButton label={"新規登録"} style={buttonStyle} backgroundColor={orange500}
+                                              labelColor={fullWhite} onClick={() => {
+                                    if (this.state.name && this.state.password && this.state.confirm && (this.state.password === this.state.confirm)) {
+                                        return this.registerAction(this.state.name, this.state.password)
+                                    } else {
+                                        return this.setError()
+                                    }
+                                }
+                                }/>
+                                <br/>
+                                <text style={registerStyle}>登録がお済みの方は<Link to={{pathname: '/login'}}>ログイン画面</Link>へ
+                                </text>
+                            </Card>
+                            <h1>{this.state.name}</h1>
+                            <h2>{this.state.password}</h2>
+                        </div>
+                    </MuiThemeProvider>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <MuiThemeProvider>
+                        <div>
+                            <Card style={FormStyle}>
+                                <CardHeader title={"ログイン"} titleStyle={titleStyle}/>
+                                <h2>登録が完了しました</h2>
+                                <br/>
+                                <text><Link to={{pathname: '/login'}}>ログイン画面</Link>へ</text>
+                            </Card>
+                        </div>
+                    </MuiThemeProvider>
+                </div>
+            )
+        }
     }
 }
