@@ -32,5 +32,25 @@ class Routes {
             get("", TaskController().getTaskList(), toJson)
             post("", TaskController().addTask(), toJson)
         }
+
+        options("/*"
+        ) { request, response ->
+
+            val accessControlRequestHeaders = request
+                    .headers("Access-Control-Request-Headers")
+            if (accessControlRequestHeaders != null) {
+                response.header("Access-Control-Allow-Headers",
+                        accessControlRequestHeaders)
+            }
+
+            val accessControlRequestMethod = request
+                    .headers("Access-Control-Request-Method")
+            if (accessControlRequestMethod != null) {
+                response.header("Access-Control-Allow-Methods",
+                        accessControlRequestMethod)
+            }
+
+            "OK"
+        }
     }
 }
