@@ -9,6 +9,8 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import {fullWhite} from 'material-ui/styles/colors';
 import Settings from 'material-ui/svg-icons/action/settings'
+import cookie from "react-cookies";
+import {homeAction} from "../actions/HomeAction";
 
 const headerStyle = {
     backgroundColor: "#FF9800"
@@ -24,6 +26,7 @@ const iconStyle = {
     fontSize: '14px'
 };
 
+const GET_ME_URL = 'http://localhost:4567/users/me';
 
 const Logged = (props) => (
     <div>
@@ -44,6 +47,14 @@ const Logged = (props) => (
 
 
 export default class Header extends Component {
+
+    constructor(){
+        super();
+        this.state= {
+            user:'',
+            err:''
+        }
+    }
 
     render() {
         const {token, userName, logout} = this.props;

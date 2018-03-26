@@ -3,6 +3,7 @@ import {Card,  CardHeader} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {red500, orange500, fullWhite} from 'material-ui/styles/colors';
 import { Link } from 'react-router-dom'
+import cookie from 'react-cookies'
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -46,16 +47,21 @@ const loginErrStyle = {
     color: red500
 };
 
+const GET_ME_URL = 'http://localhost:4567/users/me';
+
 export default class LoginForm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            name : "",
-            password : "",
-            err: ""
+            name: "",
+            password: "",
+            err: "",
+            data: '',
+            nameErr:''
         }
-    }
+
+    };
 
     inputName(name) {
         this.props.initErr();
@@ -90,11 +96,15 @@ export default class LoginForm extends Component {
     };
 
     componentWillReceiveProps() {
+
         if (this.props.token !== "") {
             this.init()
         }
-    }
 
+        if (this.props.userName === '') {
+            this.props.homeAction()
+        }
+    }
 
     render() {
 

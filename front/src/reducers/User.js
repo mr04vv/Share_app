@@ -1,11 +1,13 @@
 import {Login, LogoutType} from "../actions/LoginAction";
 import {RegisterFailureType, RegisterReceiveType, RegisterType} from "../actions/RegisterAction";
 import * as actions from '../actions/LoginAction'
+import cookie from 'react-cookies'
+import {HomeType} from "../actions/HomeAction";
 /* Storeの実装 */
 
 
 const initialState = {
-        token : "",
+        token : cookie.load('token'),
         userName: "",
         err: "",
         json: {}
@@ -49,6 +51,10 @@ export default function Reducer(state=initialState, action) {
         case RegisterReceiveType:
             return Object.assign({}, state, {
                 userName: action.name
+            });
+        case HomeType:
+            return Object.assign({}, state, {
+               userName: action.name
             });
 
         default:
