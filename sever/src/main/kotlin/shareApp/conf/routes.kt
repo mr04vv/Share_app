@@ -14,9 +14,11 @@ class Routes {
         path("/users") {
             get("", UserController().getUser(), toJson)
             get("/me", UserController().getUserMe(), toJson)
+            get("/me/line", UserController().getUserMeByLine(), toJson)
             get("/groups/:id", UserController().getUserList(), toJson)
             get("/groups", UserController().getGroups(), toJson)
             post("", UserController().addUser(), toJson)
+            post("/line", UserController().addUserByLine(), toJson)
         }
 
         path("/login") {

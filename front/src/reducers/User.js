@@ -20,7 +20,7 @@ export default function Reducer(state=initialState, action) {
         case Login:
             return Object.assign({}, state, {
                 userName: action.payload.name,
-                token: "login"
+                token: action.payload.token
             });
         case LogoutType:
             return Object.assign({}, state, {
@@ -54,7 +54,8 @@ export default function Reducer(state=initialState, action) {
             });
         case HomeType:
             return Object.assign({}, state, {
-               userName: action.name
+                userName: action.name,
+                logged: action.logged,
             });
 
         default:

@@ -9,7 +9,8 @@ export const ReceiveReqType = "RECEIVE_REQUEST";
 export const ReceiveFailure = 'RECEIVE_FAILURE';
 export const InitError = 'INIT_ERROR';
 
-function receiveUserData(json,status) {
+function receiveUserData(json) {
+
     cookie.save('token',json.token);
     return {
         type: ReceiveType,
@@ -17,24 +18,24 @@ function receiveUserData(json,status) {
         name: json.name,
         group: json.group,
         json: json,
-        status: status
     }
 }
 
-function receiveRequest () {
+
+export function receiveRequest () {
     return {
         type: ReceiveReqType
     }
 }
 
-function receiveFailure(error) {
+export function receiveFailure(error) {
     return {
         type: ReceiveFailure,
         error: error
     }
 }
 
-export const loginAction = (name,pass,token) => {
+export const loginAction = (name,pass) => {
 
     console.log(name);
     console.log(pass);

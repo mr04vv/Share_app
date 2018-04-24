@@ -2,8 +2,9 @@ package shareApp
 
 import shareApp.conf.Routes
 import shareApp.db.*
+import spark.Spark.secure
 
-fun main(args: Array<String>) { 
+fun main(args: Array<String>) {
 
     dbConnect() //localDBに接続
     // dbConnectHeroku() //herokuのpostgreに接続
@@ -14,7 +15,9 @@ fun main(args: Array<String>) {
 //        get("", UserController().getUser(), toJson)
 //        get("/me", UserController().getUserMe(), toJson)
 //        get("/groups/:id", UserController().getUserList(), toJson)
-//        get("/groups",UserController().getGroups(), toJson)
+//
+//
+//    get("/groups",UserController().getGroups(), toJson)
 //        post("", UserController().addUser(), toJson)
 //    }
 //

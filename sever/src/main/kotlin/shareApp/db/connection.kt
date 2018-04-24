@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.SchemaUtils.create
 import shareApp.model.*
 
 fun dbConnect() {
-    Database.connect("jdbc:mysql://localhost/share_app", "com.mysql.jdbc.Driver", "root", "puremia1")
+    Database.connect("jdbc:mysql://localhost:3306/share_app", "com.mysql.jdbc.Driver", "root", "puremia1")
     transaction {
         create(User_t)
         create(Task_t)

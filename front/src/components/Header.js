@@ -26,7 +26,6 @@ const iconStyle = {
     fontSize: '14px'
 };
 
-const GET_ME_URL = 'http://localhost:4567/users/me';
 
 const Logged = (props) => (
     <div>

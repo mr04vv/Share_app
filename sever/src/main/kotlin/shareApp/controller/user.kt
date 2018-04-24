@@ -14,8 +14,12 @@ class UserController {
 
     fun getUserMe(): Route = Route { req, _ ->
         getUser(findUserIdByToken(req.headers("token")))
-
     }
+
+    fun getUserMeByLine(): Route = Route { req, _ ->
+        getUserByLine(findUserByUserId(req.headers("token")))
+    }
+
 
     fun getUserList(): Route = Route { req, _ ->
         getUserList(req.params("id").toInt())
@@ -23,6 +27,10 @@ class UserController {
 
     fun addUser(): Route = Route { req, _ ->
         addUser(jacksonObjectMapper().readValue(req.body()))
+    }
+
+    fun addUserByLine(): Route = Route { req, _ ->
+        addUserByLine(jacksonObjectMapper().readValue(req.body()))
     }
 
     fun login(): Route = Route { req, _ ->

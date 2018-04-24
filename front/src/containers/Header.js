@@ -3,10 +3,11 @@ import Header from "../components/Header";
 import {logout} from '../actions/LoginAction'
 import {homeAction} from "../actions/HomeAction";
 
-function mapStateToProps({token, userName}) {
+function mapStateToProps({token, userName, logged}) {
     return {
         token,
-        userName
+        userName,
+        logged,
     };
 }
 
