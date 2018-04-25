@@ -1,17 +1,16 @@
 package shareApp.model
 
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
-import shareApp.model.User_t.id
+import org.jetbrains.exposed.sql.update
 import spark.Spark
-import sun.rmi.runtime.Log
 
 data class LineUser (
         var id: Int = 0,
         var name: String = "",
-        var token: String = ""
+        var token: String = "",
+        var add_task_flg: Boolean = false
 )
 
 fun addUserByLine(u: LineUser): ResponseUserData {
@@ -38,7 +37,7 @@ fun getUserByLine(id: Int): ResponseUserData {
             User_t.id.eq(id)
         }.forEach {
                     user = User(it[User_t.id], it[User_t.name]
-                            , it[User_t.password])
+                            , it[User_t.password], it[User_t.add_task_flg])
                 }
 
         if (user == null) throw Spark.halt(404, "is not exist")
@@ -50,7 +49,7 @@ fun getUserByLine(id: Int): ResponseUserData {
         }
     }
 
-    return ResponseUserData(user.id, user.name, group_id)
+    return ResponseUserData(user.id, user.name, group_id, user.add_task_flg)
 }
 
 fun findUserByUserId(t: String): Int {
@@ -66,4 +65,33 @@ fun findUserByUserId(t: String): Int {
 //    ここでエラー処理 書き直す
 //    TODO
     return id
+}
+
+
+fun changeTaskFlag(userId: Int): Boolean {
+
+    val u: ResponseUserData = getUserByLine(userId)
+
+    if (!u.add_task_flg) {
+        try {
+            transaction {
+                User_t.update({User_t.id.eq(userId)}) {
+                    it[add_task_flg] = true
+                }
+            }
+        } catch (e: Exception) {
+            return false
+        }
+    } else  {
+        try {
+            transaction {
+                User_t.update({User_t.id.eq(userId)}) {
+                    it[add_task_flg] = false
+                }
+            }
+        } catch (e: Exception) {
+            return false
+        }
+    }
+    return true
 }

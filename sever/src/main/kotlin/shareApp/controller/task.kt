@@ -11,8 +11,12 @@ class TaskController {
         getTask(req.params("id").toInt())
     }
 
-    fun getTaskList(): Route = Route { req, _ ->
-        getTaskListbyId(req.queryParams("group").toInt())
+    fun getTaskListByGroupId(): Route = Route { req, _ ->
+        getTaskListByGroupId(req.queryParams("id").toInt())
+    }
+
+    fun getTaskListByUserId(): Route = Route { req, _ ->
+        getTaskListByUserId(req.queryParams("id").toInt())
     }
 
     fun addTask(): Route = Route { req, _ ->

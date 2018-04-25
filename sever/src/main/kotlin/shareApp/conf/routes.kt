@@ -19,6 +19,7 @@ class Routes {
             get("/groups", UserController().getGroups(), toJson)
             post("", UserController().addUser(), toJson)
             post("/line", UserController().addUserByLine(), toJson)
+            put("/line/task/flg/:id",UserController().changeTaskFlag())
         }
 
         path("/login") {
@@ -31,7 +32,8 @@ class Routes {
 
         path("/tasks") {
             get("/:id", TaskController().getTask(), toJson)
-            get("", TaskController().getTaskList(), toJson)
+            get("/group/", TaskController().getTaskListByGroupId(), toJson)
+            get("/user/", TaskController().getTaskListByUserId(), toJson)
             post("", TaskController().addTask(), toJson)
         }
 

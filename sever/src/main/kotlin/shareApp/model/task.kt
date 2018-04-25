@@ -32,7 +32,11 @@ data class Task(
 )
 
 data class Tasks(
-        var main: Task? = null
+        var task: Task? = null
+)
+
+data class TaskList(
+        var main: MutableList<Tasks>? = null
 )
 
 fun getTask(id: Int): Task {
@@ -51,20 +55,43 @@ fun getTask(id: Int): Task {
     return task
 }
 
-fun getTaskListbyId(id: Int): MutableList<Tasks> {
+fun getTaskListByGroupId(group_id: Int): TaskList {
 
     lateinit var task: Task
-    val tasks: MutableList<Tasks> = mutableListOf()
+    val list: MutableList<Tasks> = mutableListOf()
+    var tasks: TaskList = TaskList()
     lateinit var main: Tasks
     transaction {
         Task_t.select {
-            Task_t.group_id.eq(id)
+            Task_t.group_id.eq(group_id)
         }.forEach {
                     task = Task(it[Task_t.id], it[Task_t.title],
                             it[Task_t.group_id], it[Task_t.user_id], it[Task_t.done],
                             DeadLine(it[Task_t.d_year], it[Task_t.d_month], it[Task_t.d_day]))
                     main = Tasks(task)
-                    tasks += main
+                    list += main
+                    tasks = TaskList(list)
+                }
+    }
+    return tasks
+}
+
+fun getTaskListByUserId(user_id: Int): TaskList {
+
+    lateinit var task: Task
+    val list: MutableList<Tasks> = mutableListOf()
+    var tasks: TaskList = TaskList()
+    lateinit var main: Tasks
+    transaction {
+        Task_t.select {
+            Task_t.user_id.eq(user_id)
+        }.forEach {
+                    task = Task(it[Task_t.id], it[Task_t.title],
+                            it[Task_t.group_id], it[Task_t.user_id], it[Task_t.done],
+                            DeadLine(it[Task_t.d_year], it[Task_t.d_month], it[Task_t.d_day]))
+                    main = Tasks(task)
+                    list += main
+                    tasks = TaskList(list)
                 }
     }
     return tasks

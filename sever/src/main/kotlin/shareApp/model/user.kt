@@ -8,18 +8,21 @@ object User_t : Table("users") {
     val id = integer("id").autoIncrement().primaryKey()
     val name = varchar("name", 50).uniqueIndex()
     val password = varchar("password", 100)
+    val add_task_flg = bool("add_task_flg")
 }
 
 data class User(
         var id: Int = 0,
         var name: String = "",
-        var password: String = ""
+        var password: String = "",
+        var add_task_flg: Boolean = false
 )
 
 data class ResponseUserData(
         var id: Int = 0,
         var name: String = "",
-        var group: MutableList<Group>? = null
+        var group: MutableList<Group>? = null,
+        var add_task_flg: Boolean = false
 )
 
 data class ResponseUserDataWithToken(

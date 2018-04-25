@@ -40,4 +40,8 @@ class UserController {
     fun getGroups(): Route = Route { req, _ ->
         getGroups(findUserIdByToken(req.headers("token")))
     }
+
+    fun changeTaskFlag(): Route = Route { req, _ ->
+        changeTaskFlag(req.params("id").toInt())
+    }
 }
