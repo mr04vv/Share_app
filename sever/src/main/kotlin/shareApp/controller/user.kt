@@ -44,4 +44,8 @@ class UserController {
     fun changeTaskFlag(): Route = Route { req, _ ->
         changeTaskFlag(req.params("id").toInt())
     }
+
+    fun getLineUserList(): Route = Route { _, _ ->
+        getLineUsers()
+    }
 }

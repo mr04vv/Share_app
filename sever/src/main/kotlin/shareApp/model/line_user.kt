@@ -2,15 +2,25 @@ package shareApp.model
 
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
 import spark.Spark
+import javax.jws.soap.SOAPBinding
 
 data class LineUser (
         var id: Int = 0,
         var name: String = "",
         var token: String = "",
         var add_task_flg: Boolean = false
+)
+
+data class LineUsers (
+        var user: LineUser
+)
+
+data class LineUserList (
+        var main: MutableList<LineUsers>
 )
 
 fun addUserByLine(u: LineUser): ResponseUserData {
@@ -67,6 +77,21 @@ fun findUserByUserId(t: String): Int {
     return id
 }
 
+fun getLineUsers(): LineUserList {
+    var user: LineUser
+    val list: MutableList<LineUsers> = mutableListOf()
+    lateinit var lineUsers: LineUserList
+    lateinit var main: LineUsers
+    transaction {
+        User_t.selectAll().forEach {
+                    user = LineUser(it[User_t.id], it[User_t.name], it[User_t.password], it[User_t.add_task_flg])
+                    main = LineUsers(user)
+                    list += main
+                    lineUsers = LineUserList(list)
+                }
+    }
+    return lineUsers
+}
 
 fun changeTaskFlag(userId: Int): Boolean {
 

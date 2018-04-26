@@ -6,8 +6,8 @@ import spark.Spark.secure
 
 fun main(args: Array<String>) {
 
-//     dbConnect() //localDBに接続
-    dbConnectHeroku() //herokuのpostgreに接続
+     dbConnect() //localDBに接続
+//    dbConnectHeroku() //herokuのpostgreに接続
     filter() //cors許容
     Routes().init()
     

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import shareApp.JsonTransformer
 import spark.Spark.*
 import shareApp.controller.*
+import javax.jws.soap.SOAPBinding
 
 class Routes {
 
@@ -17,6 +18,7 @@ class Routes {
             get("/me/line", UserController().getUserMeByLine(), toJson)
             get("/groups/:id", UserController().getUserList(), toJson)
             get("/groups", UserController().getGroups(), toJson)
+            get("/line", UserController().getLineUserList(), toJson)
             post("", UserController().addUser(), toJson)
             post("/line", UserController().addUserByLine(), toJson)
             put("/line/task/flg/:id",UserController().changeTaskFlag())
@@ -34,6 +36,7 @@ class Routes {
             get("/:id", TaskController().getTask(), toJson)
             get("/group/", TaskController().getTaskListByGroupId(), toJson)
             get("/user/", TaskController().getTaskListByUserId(), toJson)
+            get("", TaskController().getAllTask(), toJson)
             post("", TaskController().addTask(), toJson)
         }
 

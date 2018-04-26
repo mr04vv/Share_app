@@ -3,6 +3,8 @@ package shareApp.model
 import spark.Spark.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.*
+import org.joda.time.DateTime
+import java.util.*
 
 
 object Task_t : Table("tasks") {
@@ -14,6 +16,7 @@ object Task_t : Table("tasks") {
     val d_year = integer("dead_year").nullable()
     val d_month = integer("dead_month").nullable()
     val d_day = integer("dead_day").nullable()
+    val limit = datetime("limit").nullable()
 }
 
 data class DeadLine(
@@ -28,7 +31,8 @@ data class Task(
         var group_id: Int = 0,
         var user_id: Int = 0,
         var done: Boolean = false,
-        var dead: DeadLine = DeadLine()
+        var dead: DeadLine = DeadLine(),
+        var limit: DateTime? = null
 )
 
 data class Tasks(
@@ -45,10 +49,10 @@ fun getTask(id: Int): Task {
     transaction {
         Task_t.select {
             Task_t.id.eq(id)
-        }.forEach {
+        }.orderBy(Task_t.limit).forEach {
                     task = Task(it[Task_t.id], it[Task_t.title]
                             , it[Task_t.group_id], it[Task_t.user_id], it[Task_t.done],
-                            DeadLine(it[Task_t.d_year], it[Task_t.d_month], it[Task_t.d_day]))
+                            DeadLine(it[Task_t.d_year], it[Task_t.d_month], it[Task_t.d_day]), it[Task_t.limit])
                 }
     }
     if (task.id == 0) throw halt(404, "is not exist")
@@ -64,10 +68,10 @@ fun getTaskListByGroupId(group_id: Int): TaskList {
     transaction {
         Task_t.select {
             Task_t.group_id.eq(group_id)
-        }.forEach {
+        }.orderBy(Task_t.limit).forEach {
                     task = Task(it[Task_t.id], it[Task_t.title],
                             it[Task_t.group_id], it[Task_t.user_id], it[Task_t.done],
-                            DeadLine(it[Task_t.d_year], it[Task_t.d_month], it[Task_t.d_day]))
+                            DeadLine(it[Task_t.d_year], it[Task_t.d_month], it[Task_t.d_day]), it[Task_t.limit])
                     main = Tasks(task)
                     list += main
                     tasks = TaskList(list)
@@ -85,10 +89,10 @@ fun getTaskListByUserId(user_id: Int): TaskList {
     transaction {
         Task_t.select {
             Task_t.user_id.eq(user_id)
-        }.forEach {
+        }.orderBy(Task_t.limit).forEach {
                     task = Task(it[Task_t.id], it[Task_t.title],
                             it[Task_t.group_id], it[Task_t.user_id], it[Task_t.done],
-                            DeadLine(it[Task_t.d_year], it[Task_t.d_month], it[Task_t.d_day]))
+                            DeadLine(it[Task_t.d_year], it[Task_t.d_month], it[Task_t.d_day]), it[Task_t.limit])
                     main = Tasks(task)
                     list += main
                     tasks = TaskList(list)
@@ -97,7 +101,36 @@ fun getTaskListByUserId(user_id: Int): TaskList {
     return tasks
 }
 
+fun getAllTasks(): TaskList {
+
+    lateinit var task: Task
+    val list: MutableList<Tasks> = mutableListOf()
+    var tasks: TaskList = TaskList()
+    lateinit var main: Tasks
+    transaction {
+        Task_t.selectAll()
+        .orderBy(Task_t.limit).forEach {
+            task = Task(it[Task_t.id], it[Task_t.title],
+                    it[Task_t.group_id], it[Task_t.user_id], it[Task_t.done],
+                    DeadLine(it[Task_t.d_year], it[Task_t.d_month], it[Task_t.d_day]), it[Task_t.limit])
+            main = Tasks(task)
+            list += main
+            tasks = TaskList(list)
+        }
+    }
+    return tasks
+}
+
 fun addTask(task: Task): Task {
+
+    val cal = Calendar.getInstance()
+    cal.set(Calendar.YEAR, task.dead.year!!)
+    cal.set(Calendar.MONTH, task.dead.month!!)
+    cal.set(Calendar.DAY_OF_MONTH, task.dead.day!!)
+    cal.set(Calendar.HOUR_OF_DAY, 12)
+    cal.set(Calendar.MINUTE, 11)
+    cal.set(Calendar.SECOND, 15)
+    task.limit = DateTime(cal)
 
     transaction {
         task.id = Task_t.insert {
@@ -108,6 +141,7 @@ fun addTask(task: Task): Task {
             it[d_year] = task.dead.year
             it[d_month] = task.dead.month
             it[d_day] = task.dead.day
+            it[limit] = DateTime(cal)
         } get Task_t.id
     }
     return task

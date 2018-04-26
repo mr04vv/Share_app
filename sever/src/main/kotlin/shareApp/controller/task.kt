@@ -22,4 +22,8 @@ class TaskController {
     fun addTask(): Route = Route { req, _ ->
         addTask(jacksonObjectMapper().readValue(req.body()))
     }
+
+    fun getAllTask(): Route = Route { _, _ ->
+        getAllTasks()
+    }
 }
