@@ -124,12 +124,10 @@ fun getAllTasks(): TaskList {
 fun addTask(task: Task): Task {
 
     val cal = Calendar.getInstance()
+
+    cal.set(Calendar.MONTH, task.dead.month!!-1)
     cal.set(Calendar.YEAR, task.dead.year!!)
-    cal.set(Calendar.MONTH, task.dead.month!!)
     cal.set(Calendar.DAY_OF_MONTH, task.dead.day!!)
-    cal.set(Calendar.HOUR_OF_DAY, 12)
-    cal.set(Calendar.MINUTE, 11)
-    cal.set(Calendar.SECOND, 15)
     task.limit_date = DateTime(cal)
 
     transaction {

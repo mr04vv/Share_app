@@ -30,3 +30,16 @@ fun dbConnectHeroku() {
         create(Token_t)
     }
 }
+
+fun dbConnectGcp() {
+    Database.connect("jdbc:google:mysql://server-202216:us-central1:linebotsql/share?user=root&amp;password=root", "com.mysql.jdbc.GoogleDriver")
+    transaction {
+        create(User_t)
+        create(Task_t)
+        create(Content_t)
+        create(Comment_t)
+        create(Group_t)
+        create(GroupMember_t)
+        create(Token_t)
+    }
+}
