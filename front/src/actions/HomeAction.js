@@ -7,10 +7,12 @@ export const HomeReqType = "AUTO_LOGIN_REQUEST";
 export const HomeFailure = 'AUTO_LOGIN_FAILURE';
 
 function receiveUserData(json) {
+
     return {
         type: HomeType,
         data: json,
-        name: json.name
+        name: json.name,
+        logged: true
     }
 }
 
@@ -36,7 +38,7 @@ export const homeAction = () => {
             mode: 'cors',
             headers: {
                 'Accept': 'application/json',
-                'token': cookie.load('token')
+                'token': cookie.load("token")
             },
         })
             .then((response) => response.json())

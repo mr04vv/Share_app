@@ -47,7 +47,6 @@ const loginErrStyle = {
     color: red500
 };
 
-const GET_ME_URL = 'http://localhost:4567/users/me';
 
 export default class LoginForm extends Component {
 
@@ -108,9 +107,9 @@ export default class LoginForm extends Component {
 
     render() {
 
-        const {token, userName, err, json} = this.props;
+        const {token, userName, err, logged} = this.props;
 
-        if (token === "") {
+        if (token === "" || !logged ) {
             return (
                 <div>
                     <MuiThemeProvider>

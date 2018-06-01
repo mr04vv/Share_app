@@ -4,15 +4,15 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import spark.Spark.halt
 
-object Group_t : Table("groups") {
+object GroupTable : Table("groups") {
     val id = integer("id").autoIncrement().primaryKey()
     val name = varchar("name", 50)
 }
 
-object GroupMember_t : Table("group_members") {
+object GroupMemberTable : Table("group_members") {
     val id = integer("id").autoIncrement().primaryKey()
-    val group_id = integer("group_id").references(Group_t.id, ReferenceOption.CASCADE)
-    val user_id = integer("user_id").references(User_t.id, ReferenceOption.CASCADE)
+    val group_id = integer("group_id").references(GroupTable.id, ReferenceOption.CASCADE)
+    val user_id = integer("user_id").references(UserTable.id, ReferenceOption.CASCADE)
 }
 
 data class GroupMember(
@@ -28,9 +28,9 @@ data class Group(
 fun addGroup(group: Group): Group {
 
     transaction {
-        group.id = Group_t.insert {
-            it[Group_t.name] = group.name
-        } get Group_t.id
+        group.id = GroupTable.insert {
+            it[GroupTable.name] = group.name
+        } get GroupTable.id
     }
     if (group.id == 0) throw halt(400, "can't create group")
     return group

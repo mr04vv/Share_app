@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import shareApp.JsonTransformer
 import spark.Spark.*
 import shareApp.controller.*
+import javax.jws.soap.SOAPBinding
 
 class Routes {
 
@@ -23,13 +24,15 @@ class Routes {
             post("", UserController().login(), toJson)
         }
 
-        path("groups") {
+        path("/groups") {
             post("", GroupController().addGroup(), toJson)
         }
 
         path("/tasks") {
-            get("/:id", TaskController().getTask(), toJson)
-            get("", TaskController().getTaskList(), toJson)
+            get("", TaskController().getTask(), toJson)
+            get("/group", TaskController().getTaskListByGroupId(), toJson)
+            get("/user", TaskController().getTaskListByUserId(), toJson)
+            get("/all", TaskController().getAllTask(), toJson)
             post("", TaskController().addTask(), toJson)
         }
 
@@ -49,7 +52,6 @@ class Routes {
                 response.header("Access-Control-Allow-Methods",
                         accessControlRequestMethod)
             }
-
             "OK"
         }
     }

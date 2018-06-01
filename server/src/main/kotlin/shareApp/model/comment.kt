@@ -2,7 +2,7 @@ package shareApp.model
 
 import org.jetbrains.exposed.sql.*
 
-object Comment_t : Table("comments") {
+object CommentTable : Table("comments") {
     val id = integer("id").autoIncrement().primaryKey()
     val task_id = integer("task_id")
     val user_id = integer("user_id")

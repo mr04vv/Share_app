@@ -14,7 +14,6 @@ class UserController {
 
     fun getUserMe(): Route = Route { req, _ ->
         getUser(findUserIdByToken(req.headers("token")))
-
     }
 
     fun getUserList(): Route = Route { req, _ ->
@@ -32,4 +31,5 @@ class UserController {
     fun getGroups(): Route = Route { req, _ ->
         getGroups(findUserIdByToken(req.headers("token")))
     }
+
 }

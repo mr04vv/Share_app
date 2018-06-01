@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import spark.Spark.halt
 import java.util.UUID
 
-object Token_t : Table("tokens") {
+object TokenTable : Table("tokens") {
     val token = varchar("token", 100)
     val user_id = integer("user_id")
 }
@@ -15,6 +15,7 @@ data class Token(
         val user_id: Int
 )
 
+// tokenを生成
 fun createToken(u_id: Int): String {
     val uuid = UUID.randomUUID().toString()
     val t = Token(uuid, u_id)
@@ -22,26 +23,30 @@ fun createToken(u_id: Int): String {
     return t.token
 }
 
+// tokenを追加
 fun insertToken(t: Token) {
+    // userIdとtokenをdbに保存
     transaction {
-        Token_t.insert {
+        TokenTable.insert {
             it[token] = t.token
             it[user_id] = t.user_id
         }
     }
 }
 
+// tokenからuserId取得
 fun findUserIdByToken(t: String): Int {
-    var id: Int = 0
+    var userId: Int = 0
     transaction {
-        Token_t.select {
-            Token_t.token.eq(t)
+        TokenTable.select {
+            TokenTable.token.eq(t)
         }.forEach {
-                    id = it[Token_t.user_id]
+                    userId = it[TokenTable.user_id]
                 }
     }
-    if (id == 0) throw halt(404, "is not exist")
+    if (userId == 0) throw halt(404, "is not exist")
 //    ここでエラー処理 書き直す
 //    TODO
-    return id
+    // userId
+    return userId
 }
