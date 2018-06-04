@@ -65,7 +65,7 @@ export const logout = (token) => {
     return {
         type: LogoutType,
         payload: {
-            token
+            token,
         }
     }
 };
