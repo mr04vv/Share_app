@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@yami_beta/react-circular-loading@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@yami_beta/react-circular-loading/-/react-circular-loading-2.0.0.tgz#2b670f3f553d947110500d22c64050f7b7ae3a33"
+
 abab@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"
@@ -5305,6 +5309,10 @@ react-fontawesome@^1.6.1:
   resolved "https://registry.yarnpkg.com/react-fontawesome/-/react-fontawesome-1.6.1.tgz#eddce17e7dc731aa09fd4a186688a61793a16c5c"
   dependencies:
     prop-types "^15.5.6"
+
+react-loading@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-2.0.2.tgz#bc6d908fa316e1ccd677b7567792049a9bb4be0d"
 
 react-redux@^5.0.7:
   version "5.0.7"

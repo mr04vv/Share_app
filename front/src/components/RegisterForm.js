@@ -3,6 +3,10 @@ import {Card,  CardHeader} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {red500, orange500, fullWhite} from 'material-ui/styles/colors';
 import { Link } from 'react-router-dom'
+import ReactLoading from 'react-loading';
+
+import {Redirect } from 'react-router-dom'
+
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -58,7 +62,8 @@ export default class RegisterForm extends Component {
             confirm: "",
             err: '',
             register: false,
-            nameErr: ''
+            nameErr: '',
+            loading: false
         }
     }
 
@@ -83,18 +88,40 @@ export default class RegisterForm extends Component {
         })
     }
 
-    componentWillReceiveProps() {
-        if (this.props.userName !== "") {
-            this.setState({
-                register: true
-            })
+    init() {
+        this.setState({
+            name:'',
+            password:'',
+            err:'',
+            register: false
+        })
+    };
+
+    componentWillMount() {
+        // if (this.props.userName !== "") {
+        //     this.setState({
+        //         register: true
+        //     })
+        // }
+        if (this.props.token !== "") {
+            this.init()
+        }
+
+        if (this.props.userName === '') {
+            this.props.homeAction()
         }
     }
 
+    register(name,pass) {
+        this.props.registerAction(name,pass)
+    }
+
     registerAction(name,pass) {
+        this.setState({
+            loading: true
+        });
         console.log(name);
         console.log(pass);
-
         fetch(REGISTER_URL, {
             method: 'POST',
             mode: 'cors',
@@ -110,13 +137,15 @@ export default class RegisterForm extends Component {
             .then(json => {
                 if (json.name !== "") {
                     this.setState({
-                        register: true
+                        register: true,
+                        loading: false,
                     })
                 }
             })
             .catch(err => {
                 this.setState({
-                    nameErr: err
+                    nameErr: err,
+                    loading: false
                 })
             });
     }
@@ -127,11 +156,28 @@ export default class RegisterForm extends Component {
         })
     }
 
+
     render() {
 
-        const {registerAction, err, userName} = this.props;
+        const {loading,token} = this.props;
 
-        if (this.state.register === false) {
+        if (this.state.loading === true) {
+            return (
+                <div>
+                    <MuiThemeProvider>
+                        <div>
+                            <Card style={FormStyle}>
+                                <CardHeader title={"新規登録画面"} titleStyle={titleStyle}/>
+                                <div align="center">
+                                    <ReactLoading type={"spinningBubbles"} color={"gray"} height={100} width={100} />
+                                </div>
+                            </Card>
+                        </div>
+                    </MuiThemeProvider>
+                </div>
+            )
+        }
+        if (this.state.register === false && token === "") {
             return (
                 <div>
                     <MuiThemeProvider>
@@ -179,7 +225,7 @@ export default class RegisterForm extends Component {
                     </MuiThemeProvider>
                 </div>
             )
-        } else {
+        } else if (this.state.register === true){
             return (
                 <div>
                     <MuiThemeProvider>
@@ -193,6 +239,10 @@ export default class RegisterForm extends Component {
                         </div>
                     </MuiThemeProvider>
                 </div>
+            )
+        } else if (token !== "") {
+            return (
+                <Redirect to={'login'}/>
             )
         }
     }

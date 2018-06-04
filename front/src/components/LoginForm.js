@@ -4,9 +4,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {red500, orange500, fullWhite} from 'material-ui/styles/colors';
 import { Link } from 'react-router-dom'
 import cookie from 'react-cookies'
+import ReactLoading from 'react-loading';
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+
 
 const FormStyle = {
     width: "500px",
@@ -94,22 +96,40 @@ export default class LoginForm extends Component {
         })
     };
 
-    componentWillReceiveProps() {
-
-        if (this.props.token !== "") {
-            this.init()
-        }
+    componentWillMount() {
 
         if (this.props.userName === '') {
             this.props.homeAction()
         }
     }
 
+    componentWillReceiveProps() {
+        if (this.props.token === "") {
+            this.init()
+        }
+    }
+
     render() {
 
-        const {token, userName, err, logged} = this.props;
+        const {token, userName, err, loading} = this.props;
 
-        if (token === "" || !logged ) {
+        if (loading === true) {
+            return(
+                <div>
+                    <MuiThemeProvider>
+                        <div>
+                            <Card style={FormStyle}>
+                                <CardHeader title={"ログイン"} titleStyle={titleStyle}/>
+                                <div align="center">
+                                    <ReactLoading type={"spinningBubbles"} color={"gray"} height={100} width={100} />
+                                </div>
+                            </Card>
+                        </div>
+                    </MuiThemeProvider>
+                </div>
+            )
+        }
+        if (token === "") {
             return (
                 <div>
                     <MuiThemeProvider>

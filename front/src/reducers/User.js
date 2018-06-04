@@ -1,8 +1,8 @@
-import {Login, LogoutType} from "../actions/LoginAction";
-import {RegisterFailureType, RegisterReceiveType, RegisterType} from "../actions/RegisterAction";
+import {Login, LogoutType, ReceiveReqType} from "../actions/LoginAction";
+import {RegisterFailureType, RegisterReceiveType, RegisterReqType, RegisterType} from "../actions/RegisterAction";
 import * as actions from '../actions/LoginAction'
 import cookie from 'react-cookies'
-import {HomeType} from "../actions/HomeAction";
+import {HomeFailure, HomeReqType, HomeType} from "../actions/HomeAction";
 /* Storeの実装 */
 
 
@@ -10,7 +10,8 @@ const initialState = {
         token : cookie.load('token'),
         userName: "",
         err: "",
-        json: {}
+        json: {},
+        loading: false,
 };
 
 //actuonで定義したtypeを元に調整
@@ -20,7 +21,8 @@ export default function Reducer(state=initialState, action) {
         case Login:
             return Object.assign({}, state, {
                 userName: action.payload.name,
-                token: action.payload.token
+                token: action.payload.token,
+                loading: false
             });
         case LogoutType:
             return Object.assign({}, state, {
@@ -34,30 +36,40 @@ export default function Reducer(state=initialState, action) {
             return Object.assign({}, state, {
                 userName: action.name,
                 token: action.token,
-                err: ""
+                err: "",
+                loading:false
             });
         case actions.ReceiveFailure:
+        case HomeFailure:
+        case RegisterFailureType:
             return Object.assign({}, state, {
-                err: action.error
+                err: action.error,
+                loading: false
             });
         case actions.InitError:
             return Object.assign({}, state, {
                 err: ""
             });
-        case RegisterFailureType:
-            return Object.assign({}, state, {
-                err: action.error
-            });
         case RegisterReceiveType:
             return Object.assign({}, state, {
-                userName: action.name
+                userName: action.name,
+                loading:false
             });
         case HomeType:
             return Object.assign({}, state, {
                 userName: action.name,
                 logged: action.logged,
+                loading: false
             });
-
+        case ReceiveReqType:
+        case HomeReqType:
+            return Object.assign({}, state, {
+                loading: true,
+            });
+        case RegisterReqType:
+            return Object.assign({}, state, {
+                loading: true,
+            });
         default:
             return state;
     }

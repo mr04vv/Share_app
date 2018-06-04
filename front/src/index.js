@@ -24,7 +24,7 @@ ReactDOM.render(
         <Provider store={store}>
             <Router>
                 <div>
-                    <Route path={'/'} component={() => <Redirect to={'login'}/>}/>
+                {/*<Route path={'/'} component={() => <Redirect to={'register'}/>}/>*/}
 
                 <Route path={"/login"} component={Login}/>
 

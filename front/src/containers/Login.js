@@ -3,13 +3,14 @@ import Login from '../components/LoginForm'
 import {logout, loginAction, initErr} from "../actions/LoginAction";
 import {homeAction} from "../actions/HomeAction";
 
-function mapStateToProps({token, userName, err, json,logged}) {
+function mapStateToProps({token, userName, err, json,logged, loading}) {
     return  {
         token,
         userName,
         err,
         json,
-        logged
+        logged,
+        loading
     };
 }
 
