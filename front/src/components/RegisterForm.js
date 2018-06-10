@@ -139,13 +139,22 @@ export default class RegisterForm extends Component {
                     this.setState({
                         register: true,
                         loading: false,
+                        name: '',
+                        err:'',
+                        nameErr: '',
+                        password:'',
+                        confirm:''
                     })
                 }
             })
             .catch(err => {
                 this.setState({
                     nameErr: err,
-                    loading: false
+                    loading: false,
+                    name:'',
+                    password: '',
+                    confirm: '',
+                    err:'',
                 })
             });
     }
@@ -204,7 +213,7 @@ export default class RegisterForm extends Component {
                                            style={inputStyle}/>
                                 <br/>
                                 <text
-                                    style={registerErrStyle}>{((this.state.name || this.state.password) && this.state.nameErr) ? "そのユーザー名は使用できません" : ""}</text>
+                                    style={registerErrStyle}>{ this.state.nameErr ? "そのユーザー名は使用できません" : ""}</text>
                                 <br/>
                                 <RaisedButton label={"新規登録"} style={buttonStyle} backgroundColor={orange500}
                                               labelColor={fullWhite} onClick={() => {
