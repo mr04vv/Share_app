@@ -147,7 +147,7 @@ export default class LoginForm extends Component {
                                            errorStyle={errorStyle}
                                            onChange={(e) => this.inputPassword(e.target.value)} style={inputStyle}/>
                                 <br/>
-                                <text style={loginErrStyle}>{((this.state.name || this.state.password) && err) ? "ログインできませんでした" : ""}</text>
+                                <text style={loginErrStyle}>{ err ? "ログインできませんでした" : ""}</text>
                                 <br/>
                                 <RaisedButton label={"ログイン"} style={buttonStyle} backgroundColor={orange500}
                                               labelColor={fullWhite}

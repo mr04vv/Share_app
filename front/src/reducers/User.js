@@ -39,8 +39,12 @@ export default function Reducer(state=initialState, action) {
                 err: "",
                 loading:false
             });
-        case actions.ReceiveFailure:
         case HomeFailure:
+            return Object.assign({}, state, {
+                loading: false,
+            });
+
+        case actions.ReceiveFailure:
         case RegisterFailureType:
             return Object.assign({}, state, {
                 err: action.error,
