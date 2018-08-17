@@ -18,6 +18,7 @@ const store = createStore(
     )
 );
 
+
 ReactDOM.render(
     <div>
         <Header store={store}/>

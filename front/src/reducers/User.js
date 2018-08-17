@@ -12,6 +12,7 @@ const initialState = {
         err: "",
         json: {},
         loading: false,
+        fetchErr: ""
 };
 
 //actuonで定義したtypeを元に調整
@@ -36,18 +37,19 @@ export default function Reducer(state=initialState, action) {
             return Object.assign({}, state, {
                 userName: action.name,
                 token: action.token,
-                err: "",
+                err: action.err,
                 loading:false
             });
         case HomeFailure:
             return Object.assign({}, state, {
                 loading: false,
+                fetchErr: action.err
             });
 
         case actions.ReceiveFailure:
         case RegisterFailureType:
             return Object.assign({}, state, {
-                err: action.error,
+                err: action.err,
                 loading: false
             });
         case actions.InitError:

@@ -7,7 +7,6 @@ export const HomeReqType = "AUTO_LOGIN_REQUEST";
 export const HomeFailure = 'AUTO_LOGIN_FAILURE';
 
 function receiveUserData(json) {
-
     return {
         type: HomeType,
         data: json,
@@ -22,10 +21,10 @@ function receiveRequest () {
     }
 }
 
-function receiveFailure(error) {
+function receiveFailure(err) {
     return {
         type: HomeFailure,
-        error: error
+        err: err
     }
 }
 

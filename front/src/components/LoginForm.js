@@ -111,8 +111,8 @@ export default class LoginForm extends Component {
 
     render() {
 
-        const {token, userName, err, loading} = this.props;
-
+        const {token, userName, err, loading, fetchErr} = this.props;
+        console.log(fetchErr)
         if (loading === true) {
             return(
                 <div>
@@ -129,7 +129,7 @@ export default class LoginForm extends Component {
                 </div>
             )
         }
-        if (token === "") {
+        if (token === "" || fetchErr !== "") {
             return (
                 <div>
                     <MuiThemeProvider>
@@ -163,7 +163,7 @@ export default class LoginForm extends Component {
             )
         }
 
-        if (token !== "") {
+        if (token !== "" && fetchErr === "") {
 
             return (
                 <div>
