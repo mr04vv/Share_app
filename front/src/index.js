@@ -1,39 +1,39 @@
 import React from "react"
+import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom'
-import Header from './containers/Header'
+import { CookiesProvider } from "react-cookie";
+
 import Login from './containers/Login'
 import Register from './containers/Register'
-import {createStore, applyMiddleware} from 'redux'
-import reducer from "./reducers/User"
-import { Provider } from 'react-redux'
-import thunkMiddleware from 'redux-thunk'
+import configureStore from "./redux/";
 
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
+import moment from "moment";
+import TextInput from "./components/TextInput/TextInput"
+// 背景：0.1MB サイズぐらい重かった為
+// momentの全てのlocaleをbuiltに含まれないように webpack.configでlocaleのjsをignoreし、
+// 必要とするja.js のみをインポートします。
+import "moment/locale/ja.js";
+import userRegister from "./scenes/user/userRegister";
+moment.locale("ja");
+const store = configureStore();
 
+const App = () => (
+  <Provider store={store}>
+    <Router>
+      <Switch>
 
-const store = createStore(
-    reducer,
-    applyMiddleware(
-        thunkMiddleware
-    )
+        <Route path={"/login"} component={Login}/>
+
+        <Route path={"/register"} component={userRegister}/>
+      </Switch>
+    </Router>
+  </Provider>
 );
 
-
 ReactDOM.render(
-    <div>
-        <Header store={store}/>
-        <Provider store={store}>
-            <Router>
-                <div>
-                <Route exact path='/' component={() => <Redirect to={'register'}/>}/>
-
-                <Route path={"/login"} component={Login}/>
-
-                <Route path={"/register"} component={Register}/>
-                </div>
-            </Router>
-        </Provider>
-    </div>
-    ,
-    document.getElementById('root')
+  <CookiesProvider>
+    <App/>
+  </CookiesProvider>,
+  document.getElementById('root')
 );

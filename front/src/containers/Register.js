@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';//react-reduxの機能
 import { registerAction } from '../actions/RegisterAction'　//ファイル追加②
-import Register from '../components/RegisterForm'
+import Register from '../old-components/RegisterForm'
 import {initErr} from "../actions/LoginAction";
 import {homeAction} from "../actions/HomeAction";
 
