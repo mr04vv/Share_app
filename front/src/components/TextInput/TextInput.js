@@ -5,7 +5,8 @@ import {red500} from "material-ui/styles/colors";
 
 const inputStyle = {
   textAlign: "center",
-  marginBottom: '30px'
+  margin: "auto",
+  display: "block"
 };
 
 const errorStyle = {
@@ -25,8 +26,8 @@ const TextInput = (props) => {
   const {type, id, label, error, onChange} = props;
   return (
     <MuiThemeProvider>
-    <TextField type={type} id={id} floatingLabelText={label}
-               errorText={error} errorStyle={errorStyle}
+    <TextField type={type && type} id={id && id} floatingLabelText={label && label}
+               errorText={error && error} errorStyle={errorStyle}
                onChange={(e) => onChange(e)} hintStyle={inputStyle} style={inputStyle}/>
     </MuiThemeProvider>
   )

@@ -14,7 +14,7 @@ import TextInput from "./components/TextInput/TextInput"
 // momentの全てのlocaleをbuiltに含まれないように webpack.configでlocaleのjsをignoreし、
 // 必要とするja.js のみをインポートします。
 import "moment/locale/ja.js";
-import userRegister from "./scenes/user/userRegister";
+import RegisterHome from "./scenes/user/RegisterHome"
 moment.locale("ja");
 const store = configureStore();
 
@@ -25,7 +25,7 @@ const App = () => (
 
         <Route path={"/login"} component={Login}/>
 
-        <Route path={"/register"} component={userRegister}/>
+        <Route path={"/register"} component={RegisterHome}/>
       </Switch>
     </Router>
   </Provider>

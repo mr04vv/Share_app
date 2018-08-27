@@ -2,7 +2,7 @@ import React from "react"
 import styled from "react-emotion"
 
 const CommonButton = (props) => (
-  <Button color={props.color} width={props.width} height={props.height}>
+  <Button onClick={() => props.onClick()} color={props.color} width={props.width} height={props.height}>
     {props.label}
   </Button>
 );
