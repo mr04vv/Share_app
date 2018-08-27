@@ -1,35 +1,46 @@
 import React from "react"
 import styled from "react-emotion"
+import {connect} from "react-redux";
+
 import TextInput from "../../../components/TextInput/TextInput"
+import {registerAction} from "../../../redux/modules/users/userRegister";
 
 const requiredError = "必須項目です";
 const passwordNotMatchError = "パスワードが一致しません";
 const shortError = "8文字以上のパスワードが使用可能です";
 
-export default class registerForm extends React.Component {
+class RegisterForm extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      email: "",
-      emailError: "",
+      userId: "",
+      userIdError: "",
       password: "",
       passwordError: "",
       confirmPassword: "",
       confirmPasswordError: "",
       nickName: "",
-      nickNameError: ""
+      nickNameError: "",
+      registered: false, // 登録API叩く前かどうか　登録済みかどうかは関係ない
     }
   }
 
+  deleteRegisterError() {
+    this.props.registerErrorType &&
+      this.props.setRegisterErrorType(0)
+  }
+
   handleEmailChange(e) {
+    this.deleteRegisterError();
     this.setState({
-      email: e.target.value,
-      emailError: ""
+      userId: e.target.value,
+      userIdError: ""
     })
   }
 
   handlePasswordChange(e) {
+    this.deleteRegisterError();
     this.setState({
       password: e.target.value,
       passwordError: "",
@@ -38,6 +49,7 @@ export default class registerForm extends React.Component {
   }
 
   handleConfirmPasswordChange(e) {
+    this.deleteRegisterError();
     this.setState({
       confirmPassword: e.target.value,
       passwordError: "",
@@ -46,6 +58,7 @@ export default class registerForm extends React.Component {
   }
 
   handleNickNameChange(e) {
+    this.deleteRegisterError();
     this.setState({
       nickName: e.target.value,
       nickNameError: ""
@@ -54,12 +67,15 @@ export default class registerForm extends React.Component {
 
   register() {
 
-    if (this.setError() === "not match") {
-      console.log("error match")
-    } else if (this.setError()) {
-      console.log("error")
-    } else {
-      console.log("ok")
+    if (!this.setError()) {
+      this.props.register(this.state.userId, this.state.password)
+        .then(() => {
+          console.log("here")
+          console.log(this.props.userData)
+        })
+        .catch((err) => {
+          this.props.setRegisterErrorType(err);
+        })
     }
 
   }
@@ -68,9 +84,9 @@ export default class registerForm extends React.Component {
     let Error = false;
     const PassError = this.state.passwordError && this.state.confirmPasswordError
 
-    if (this.state.email.length === 0) {
+    if (this.state.userId.length === 0) {
       this.setState({
-        emailError: requiredError
+        userIdError: requiredError
       });
       Error = true
     }
@@ -119,7 +135,7 @@ export default class registerForm extends React.Component {
     return (
       <RegisterFormWrapper>
         <TextInput onChange={e => this.handleEmailChange(e)} label={"ユーザーID"}
-                   error={this.state.emailError}/>
+                   error={this.state.userIdError}/>
         <TextInput onChange={e => this.handleNickNameChange(e)} label={"ニックネーム"} error={this.state.nickNameError}/>
         <TextInput type={"password"} onChange={e => this.handlePasswordChange(e)} label={"パスワード"}
                    error={this.state.passwordError}/>
@@ -130,6 +146,23 @@ export default class registerForm extends React.Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  userData: state.userRegister.data
+});
+
+const mapDispatchToProps = dispatch => ({
+  register: (name, pass) => {
+    const data = {
+      name: name,
+      password: pass
+    };
+    return dispatch(registerAction(data))
+  }
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm)
 
 const RegisterFormWrapper = styled("div")`
   box-shadow: 0 0 8px gray;

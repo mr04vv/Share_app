@@ -71,18 +71,14 @@ export function loginFail(err) {
 
 export const loginAction = (name,pass) => {
 
-  console.log(name);
-  console.log(pass);
-
   const postData = {
     name: name,
     password: pass
   };
-  // TODO
 
   return dispatch => {
     dispatch(isLoading());
-    return client.post(`/users`, postData).then(
+    return client.post(`/login`, postData).then(
       res => {
         const payload = res.data;
         dispatch(loginSuccess(payload))
