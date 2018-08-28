@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 
 import TextInput from "../../../components/TextInput/TextInput"
 import {registerAction} from "../../../redux/modules/users/userRegister";
+import display from "../../../styles/display"
 
 const requiredError = "必須項目です";
 const passwordNotMatchError = "パスワードが一致しません";
@@ -162,13 +163,17 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm)
-
 const RegisterFormWrapper = styled("div")`
   box-shadow: 0 0 8px gray;
-  width: 40%;
+  width: 450px;
   padding: 20px;
   margin: 0 auto;
+  margin-top: 100px;
+  @media screen and (max-width: ${display.BREAK_POINT_SP}px) {
+    box-shadow: none;
+    width: unset;
+    margin-top: unset;
+  }
   
 `;
 
@@ -178,7 +183,7 @@ const RegisterButton = styled("button")`
   height: 30px;
   font-size: 14px;
   display: block;
-  margin: 20px auto;
+  margin: 40px auto 0px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
   background-color: rgb(255, 152, 0);
   border-radius: 2px;
@@ -198,3 +203,5 @@ const RegisterButton = styled("button")`
 
   }
 `;
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm)

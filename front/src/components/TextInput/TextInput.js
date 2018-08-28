@@ -6,7 +6,8 @@ import {red500} from "material-ui/styles/colors";
 const inputStyle = {
   textAlign: "center",
   margin: "auto",
-  display: "block"
+  display: "block",
+  width: "80%"
 };
 
 const errorStyle = {
