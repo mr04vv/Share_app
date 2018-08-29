@@ -14,6 +14,8 @@ import moment from "moment";
 import "moment/locale/ja.js";
 import RegisterHome from "./scenes/user/RegisterHome"
 import "./styles/cssReset";
+import LoginHome from "./scenes/user/LoginHome";
+import TopPage from "./scenes/top/index"
 
 moment.locale("ja");
 const store = configureStore();
@@ -22,9 +24,8 @@ const App = () => (
   <Provider store={store}>
     <Router>
       <Switch>
-
-        <Route path={"/login"} component={Login}/>
-
+        <Route exact path={"/"} component={TopPage}/>
+        <Route path={"/login"} component={LoginHome}/>
         <Route path={"/register"} component={RegisterHome}/>
       </Switch>
     </Router>

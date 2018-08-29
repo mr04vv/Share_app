@@ -1,4 +1,3 @@
-import cookie from 'react-cookies'
 import client from "../../../utilities/apiClient";
 
 const MODULE_NAME = "USER_LOGIN";
@@ -69,12 +68,7 @@ export function loginFail(err) {
   }
 }
 
-export const loginAction = (name,pass) => {
-
-  const postData = {
-    name: name,
-    password: pass
-  };
+export const loginAction = (postData) => {
 
   return dispatch => {
     dispatch(isLoading());
@@ -85,20 +79,16 @@ export const loginAction = (name,pass) => {
       },
       err => {
         dispatch(loginFail(err));
-        throw err
+        throw err.response.status
       }
     )
   }
 };
 
 
-export const logout = (token) => {
-  cookie.save('token','');
+export const logout = () => {
   return {
     type: LOGOUT,
-    payload: {
-      token,
-    }
   }
 };
 

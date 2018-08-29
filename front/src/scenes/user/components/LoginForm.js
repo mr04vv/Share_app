@@ -1,18 +1,18 @@
 import React from "react"
+import { withRouter } from "react-router";
 import styled from "react-emotion"
-import {connect} from "react-redux"
-import {Link} from "react-router-dom"
+import {connect} from "react-redux";
 
 import TextInput from "../../../components/TextInput/TextInput"
-import {registerAction} from "../../../redux/modules/users/userRegister"
+import {loginAction} from "../../../redux/modules/users/userLogin";
 import display from "../../../styles/display"
+import {Link} from "react-router-dom";
 
 const requiredError = "必須項目です";
-const passwordNotMatchError = "パスワードが一致しません";
-const shortError = "8文字以上のパスワードが使用可能です";
+const passwordError = "8文字以上のパスワードが使用可能です";
 const patternError = "半角英数字のみ利用可能です";
 
-class RegisterForm extends React.Component {
+class LoginForm extends React.Component {
 
   constructor() {
     super();
@@ -21,20 +21,16 @@ class RegisterForm extends React.Component {
       userIdError: "",
       password: "",
       passwordError: "",
-      confirmPassword: "",
-      confirmPasswordError: "",
-      nickName: "",
-      nickNameError: "",
     }
   }
 
-  deleteRegisterError() {
-    this.props.registerErrorType &&
-      this.props.setRegisterErrorType(0)
+  deleteLoginError() {
+    this.props.loginErrorType &&
+    this.props.setLoginErrorType(0)
   }
 
   handleEmailChange(e) {
-    this.deleteRegisterError();
+    this.deleteLoginError();
     this.setState({
       userId: e.target.value,
       userIdError: ""
@@ -42,7 +38,7 @@ class RegisterForm extends React.Component {
   }
 
   handlePasswordChange(e) {
-    this.deleteRegisterError();
+    this.deleteLoginError();
     this.setState({
       password: e.target.value,
       passwordError: "",
@@ -50,32 +46,15 @@ class RegisterForm extends React.Component {
     })
   }
 
-  handleConfirmPasswordChange(e) {
-    this.deleteRegisterError();
-    this.setState({
-      confirmPassword: e.target.value,
-      passwordError: "",
-      confirmPasswordError: ""
-    })
-  }
-
-  handleNickNameChange(e) {
-    this.deleteRegisterError();
-    this.setState({
-      nickName: e.target.value,
-      nickNameError: ""
-    })
-  }
-
-  register() {
+  login() {
 
     if (!this.setError()) {
       this.props.register(this.state.userId, this.state.password)
         .then(() => {
-          this.props.setRegisterFinish();
+          this.props.history.push("/")
         })
         .catch((err) => {
-          this.props.setRegisterErrorType(err);
+          this.props.setLoginErrorType(err);
         })
     }
 
@@ -83,7 +62,6 @@ class RegisterForm extends React.Component {
 
   setError() {
     let Error = false;
-    const PassError = this.state.passwordError && this.state.confirmPasswordError
 
     if (!this.state.userId.match(/^[A-Za-z0-9]*$/)) {
       this.setState({
@@ -106,33 +84,10 @@ class RegisterForm extends React.Component {
       Error = true
     }
 
-    if (this.state.confirmPassword.length === 0) {
-      this.setState({
-        confirmPasswordError: requiredError
-      });
-      Error = true
-    }
 
-    if (this.state.nickName.length === 0) {
+    if (this.state.password.length > 0 && this.state.password.length < 8) {
       this.setState({
-        nickNameError: requiredError
-      });
-      Error = true
-    }
-
-
-    if (!PassError && this.state.password !== this.state.confirmPassword) {
-      this.setState({
-        confirmPasswordError: passwordNotMatchError,
-        passwordError: passwordNotMatchError
-      });
-      Error = true
-    }
-
-    if (!PassError && this.state.password.length > 0 && this.state.password.length < 8) {
-      this.setState({
-        confirmPasswordError: shortError,
-        passwordError: shortError
+        passwordError: passwordError
       });
       Error = true
     }
@@ -141,26 +96,26 @@ class RegisterForm extends React.Component {
 
   render() {
     return (
-      <RegisterFormWrapper>
-        <RegisterLabel>登録画面</RegisterLabel>
-        <TextInput pattern="^[0-9]+$" onChange={e => this.handleEmailChange(e)} label={"ユーザーID"}
+      <LoginFormWrapper>
+        <LoginLabel>ログイン画面</LoginLabel>
+        <TextInput onChange={e => this.handleEmailChange(e)} label={"ユーザーID"}
                    error={this.state.userIdError}/>
-        <TextInput onChange={e => this.handleNickNameChange(e)} label={"ニックネーム"} error={this.state.nickNameError}/>
         <TextInput type={"password"} onChange={e => this.handlePasswordChange(e)} label={"パスワード"}
                    error={this.state.passwordError}/>
-        <TextInput type={"password"} onChange={e => this.handleConfirmPasswordChange(e)} label={"パスワードの確認"}
-                   error={this.state.confirmPasswordError}/>
-        <RegisterButton onClick={() => this.register()}>新規登録</RegisterButton>
-        <ToLoginWrapper>
-        <ToLoginLabel>すでに登録お済みの方は</ToLoginLabel><LoginLink to={"/login"}>こちら</LoginLink>
-        </ToLoginWrapper>
-      </RegisterFormWrapper>
+        <LoginButton onClick={() => this.login()}>ログイン</LoginButton>
+        <ToRegisterWrapper>
+          <ToRegisterLabel>
+            登録がお済みでない方は
+            <RegisterLink to={"/register"}>こちら</RegisterLink>
+          </ToRegisterLabel>
+        </ToRegisterWrapper>
+      </LoginFormWrapper>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  userData: state.userRegister.data
+  userData: state.userLogin.data
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -169,12 +124,12 @@ const mapDispatchToProps = dispatch => ({
       name: name,
       password: pass
     };
-    return dispatch(registerAction(data))
+    return dispatch(loginAction(data))
   }
 });
 
 
-const RegisterFormWrapper = styled("div")`
+const LoginFormWrapper = styled("div")`
   width: 450px;
   padding: 20px;
   margin: 0 auto;
@@ -187,7 +142,7 @@ const RegisterFormWrapper = styled("div")`
   
 `;
 
-const RegisterButton = styled("button")`
+const LoginButton = styled("button")`
   color: white;
   width: 40%;
   height: 30px;
@@ -214,7 +169,7 @@ const RegisterButton = styled("button")`
   }
 `;
 
-const RegisterLabel = styled("div")`
+const LoginLabel = styled("div")`
   font-size: 17px;
   color: orange;
   text-align: center;
@@ -223,20 +178,20 @@ const RegisterLabel = styled("div")`
   }
 `;
 
-const ToLoginWrapper = styled("div")`
+const ToRegisterWrapper = styled("div")`
   text-align: center;
-  margin-top: 10px;
+  margin-top: 18px;
 `;
 
-const ToLoginLabel = styled("div")`
+const ToRegisterLabel = styled("div")`
   display: inline;
   text-align: center;
   font-size: 12px;
 `;
 
-const LoginLink = styled(Link)`
+const RegisterLink = styled(Link)`
   font-size: 12px;
   color: orange;
 `;
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginForm))

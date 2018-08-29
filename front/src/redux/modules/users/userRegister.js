@@ -36,12 +36,6 @@ export default function userRegister(state = initialState, action = {}) {
         status: "fail"
       };
 
-    case LOGOUT:
-      return {
-        ...state,
-        status: "logout"
-      };
-
     default:
       return state;
   }
@@ -86,16 +80,6 @@ export const registerAction = (postData) => {
   }
 };
 
-
-export const logout = (token) => {
-  cookie.save('token','');
-  return {
-    type: LOGOUT,
-    payload: {
-      token,
-    }
-  }
-};
 
 
 

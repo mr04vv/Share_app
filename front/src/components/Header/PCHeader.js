@@ -1,5 +1,7 @@
 import React from "react"
 import styled from "react-emotion"
+import {Link} from "react-router-dom"
+
 import character from "../../images/task_logo.png"
 import logo from "../../images/logo_transparent.png"
 
@@ -7,8 +9,11 @@ class PCHeader extends React.Component {
   render() {
     return (
       <PCHeaderWrapper>
-        <ImageWrapper src={character}/>
-        <LogoWrapper src={logo}/>
+        <HomeLink to={"/"}>
+          <ImageWrapper src={character}/>
+          <LogoWrapper src={logo}/>
+        </HomeLink>
+        {this.props.isLogin && <LogoutButton>log out</LogoutButton>}
       </PCHeaderWrapper>
 
     )
@@ -20,8 +25,7 @@ const PCHeaderWrapper = styled("div")`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  min-width: 1200px;
-  height: 57px;
+  height: ${props => props.isMobie ? "48px" : "57px"};
   border: solid 1px #eeeeee;
   padding: 8px 26px 8px 16px;
   box-sizing: border-box;
@@ -31,6 +35,9 @@ const PCHeaderWrapper = styled("div")`
   z-index: 1000;
 `;
 
+const HomeLink = styled(Link)`
+  height: 100%;
+`;
 const ImageWrapper = styled("img")`
   height: 100%;
 `;
