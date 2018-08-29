@@ -6,7 +6,6 @@ import reducer from "./modules/reducer";
 
 let store = null;
 
-
   store = createStore(reducer, applyMiddleware(thunk,logger,...middlewares));
 
 /**
