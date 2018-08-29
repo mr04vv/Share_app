@@ -3,7 +3,6 @@ import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom'
 import { CookiesProvider } from "react-cookie";
 
-import Login from './containers/Login'
 import configureStore from "./redux/";
 
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
