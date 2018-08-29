@@ -1,38 +1,40 @@
 import React from "react"
-import ReactDOM from 'react-dom'
-import Header from './containers/Header'
-import Login from './containers/Login'
-import Register from './containers/Register'
-import {createStore, applyMiddleware} from 'redux'
-import reducer from "./reducers/User"
 import { Provider } from 'react-redux'
-import thunkMiddleware from 'redux-thunk'
+import ReactDOM from 'react-dom'
+import { CookiesProvider } from "react-cookie";
 
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import Login from './containers/Login'
+import configureStore from "./redux/";
 
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
+import moment from "moment";
+// 背景：0.1MB サイズぐらい重かった為
+// momentの全てのlocaleをbuiltに含まれないように webpack.configでlocaleのjsをignoreし、
+// 必要とするja.js のみをインポートします。
+import "moment/locale/ja.js";
+import RegisterHome from "./scenes/user/RegisterHome"
+import "./styles/cssReset";
+import LoginHome from "./scenes/user/LoginHome";
+import TopPage from "./scenes/top/index"
 
-const store = createStore(
-    reducer,
-    applyMiddleware(
-        thunkMiddleware
-    )
+moment.locale("ja");
+const store = configureStore();
+
+const App = () => (
+  <Provider store={store}>
+    <Router>
+      <Switch>
+        <Route exact path={"/"} component={TopPage}/>
+        <Route path={"/login"} component={LoginHome}/>
+        <Route path={"/register"} component={RegisterHome}/>
+      </Switch>
+    </Router>
+  </Provider>
 );
 
 ReactDOM.render(
-    <div>
-        <Header store={store}/>
-        <Provider store={store}>
-            <Router>
-                <div>
-                <Route exact path='/' component={() => <Redirect to={'register'}/>}/>
-
-                <Route path={"/login"} component={Login}/>
-
-                <Route path={"/register"} component={Register}/>
-                </div>
-            </Router>
-        </Provider>
-    </div>
-    ,
-    document.getElementById('root')
+  <CookiesProvider>
+    <App/>
+  </CookiesProvider>,
+  document.getElementById('root')
 );

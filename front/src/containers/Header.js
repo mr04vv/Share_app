@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import Header from "../components/Header";
+import Header from "../old-components/Header";
 import {logout} from '../actions/LoginAction'
 import {homeAction} from "../actions/HomeAction";
 

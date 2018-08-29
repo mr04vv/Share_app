@@ -4,6 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {red500, orange500, fullWhite} from 'material-ui/styles/colors';
 import { Link } from 'react-router-dom'
 import ReactLoading from 'react-loading';
+import onClickOutside from "react-onclickoutside";
 
 import {Redirect } from 'react-router-dom'
 
@@ -52,7 +53,7 @@ const registerErrStyle = {
     color: red500
 };
 
-export default class RegisterForm extends Component {
+class RegisterForm extends Component {
 
     constructor(props) {
         super(props);
@@ -256,3 +257,5 @@ export default class RegisterForm extends Component {
         }
     }
 }
+
+export default onClickOutside(RegisterForm)

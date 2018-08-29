@@ -28,10 +28,10 @@ export function receiveRequest () {
     }
 }
 
-export function receiveFailure(error) {
+export function receiveFailure(err) {
     return {
         type: ReceiveFailure,
-        error: error
+        err: err
     }
 }
 
