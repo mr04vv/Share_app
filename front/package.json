@@ -23,6 +23,7 @@
     "react-emotion": "^9.2.6",
     "react-fontawesome": "^1.6.1",
     "react-loading": "^2.0.2",
+    "react-modal": "^3.5.1",
     "react-onclickout": "^2.0.8",
     "react-onclickoutside": "^6.7.1",
     "react-redux": "^5.0.7",

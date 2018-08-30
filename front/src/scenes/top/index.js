@@ -1,8 +1,13 @@
 import React, {Fragment} from "react"
 import {connect} from "react-redux"
-import {Redirect} from "react-router-dom"
+import { Redirect } from "react-router-dom";
+
 import Header from "../../components/Header/Header";
 import { fetchMeAction } from "../../redux/modules/users/user"
+import MyTaskList from "./components/MyTaskList";
+
+
+
 
 class TopPage extends React.Component {
 
@@ -11,7 +16,7 @@ class TopPage extends React.Component {
     this.state = {
       fetchMeSuccess: false,
       loaded: false
-    }
+    };
   }
 
   componentDidMount() {
@@ -33,9 +38,7 @@ class TopPage extends React.Component {
       this.state.loaded ? (this.state.fetchMeSuccess ?
       <Fragment>
         <Header isLogin/>
-        <div>
-          ようこそ
-        </div>
+        <MyTaskList userData={this.props.userData}/>
       </Fragment> :
         <Redirect to={"login"}/>) :
         <Header/>
