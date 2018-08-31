@@ -2,23 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd527b3a-bdf0-4bcb-9aac-71b4b8ec73ae" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/TaskCard/TaskCard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/modules/tasks/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/modules/tasks/taskList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/modules/tasks/taskPost.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scenes/top/components/MyTaskList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scenes/top/components/PostTaskForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/modalStyle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../doc/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../doc/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../doc/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../doc/yarn.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/PCHeader.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/SPHeader.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/middlewares/authentication.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/middlewares/authentication.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/modules/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/modules/reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scenes/top/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/top/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/src/main/kotlin/shareApp/db/connection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/kotlin/shareApp/db/connection.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -85,7 +71,7 @@
         <entry file="file://$PROJECT_DIR$/src/scenes/top/components/MyTaskList.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="424">
-              <caret line="94" column="17" lean-forward="true" selection-start-line="94" selection-start-column="17" selection-end-line="94" selection-end-column="17" />
+              <caret line="94" column="17" selection-start-line="94" selection-start-column="17" selection-end-line="94" selection-end-column="17" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -313,7 +299,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
     <option name="x" value="1347" />
     <option name="y" value="23" />
     <option name="width" value="93" />
@@ -425,8 +411,9 @@
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535652698211" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535706290641" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
+    <property name="go.vendoring.notification.had.been.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="yarn" />
@@ -544,12 +531,12 @@
       <workItem from="1535292663613" duration="19174000" />
       <workItem from="1535445467293" duration="30968000" />
       <workItem from="1535554690456" duration="252000" />
-      <workItem from="1535590531697" duration="18829000" />
+      <workItem from="1535590531697" duration="19396000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="194946000" />
+    <option name="totallyTimeSpent" value="195513000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -561,10 +548,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.09637912" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12947068" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
@@ -584,7 +571,7 @@
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="ReactNative" order="10" />
       <window_info anchor="bottom" id="Version Control" order="11" />
-      <window_info anchor="bottom" id="Terminal" order="12" visible="true" weight="0.18533202" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="12" visible="true" weight="0.22557297" />
       <window_info anchor="bottom" id="RNConsole" order="13" />
       <window_info anchor="bottom" id="Database Changes" order="14" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -1015,7 +1002,7 @@
     <entry file="file://$PROJECT_DIR$/src/scenes/top/components/MyTaskList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="424">
-          <caret line="94" column="17" lean-forward="true" selection-start-line="94" selection-start-column="17" selection-end-line="94" selection-end-column="17" />
+          <caret line="94" column="17" selection-start-line="94" selection-start-column="17" selection-end-line="94" selection-end-column="17" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>

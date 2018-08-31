@@ -12,9 +12,11 @@ fun dbConnect() {
         create(TaskTable)
         create(ContentTable)
         create(CommentTable)
-        create(GroupTable)
-        create(GroupMemberTable)
         create(TokenTable)
+        create(GroupMemberTable)
+
+        create(GroupTable)
+
     }
 }
 
