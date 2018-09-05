@@ -1,6 +1,7 @@
 # Shere_app
 
 APIとフロントのリポジトリをそれぞれ作り移行しました。
+
 API:　https://github.com/mr04vv/share_task_api
 FRONT:　https://github.com/mr04vv/share_task_frontend
 ## サーバー起動方法
